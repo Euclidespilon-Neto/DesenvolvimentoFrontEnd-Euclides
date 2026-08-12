@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadro de Tarefas Acadêmicas</title>
+</head>
+<body>
+    <header>
+        <h1>Quadro de Tarefas Acadêmicas</h1>
+    </header>
+
+    <main>
+        <section aria-labelledby="titulo-busca-filtros">
+            <h2 id="titulo-busca-filtros">Busca e filtros</h2>
+
+            <form>
+                <fieldset>
+                    <legend>Encontre tarefas no quadro</legend>
+
+                    <p>
+                        <label for="busca-titulo">Buscar pelo título da tarefa:</label>
+                        <input type="search" id="busca-titulo" name="busca-titulo">
+                    </p>
+
+                    <p>
+                        <label for="filtro-status">Filtrar por status:</label>
+                        <select id="filtro-status" name="filtro-status">
+                            <option value="todos">Todos os status</option>
+                            <option value="a-fazer">A fazer</option>
+                            <option value="em-andamento">Em andamento</option>
+                            <option value="em-revisao">Em revisão</option>
+                            <option value="concluida">Concluída</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="filtro-prioridade">Filtrar por prioridade:</label>
+                        <select id="filtro-prioridade" name="filtro-prioridade">
+                            <option value="todas">Todas as prioridades</option>
+                            <option value="baixa">Baixa</option>
+                            <option value="media">Média</option>
+                            <option value="alta">Alta</option>
+                        </select>
+                    </p>
+
+                    <button type="submit">Aplicar filtros</button>
+                    <button type="reset">Limpar filtros</button>
+                </fieldset>
+            </form>
+        </section>
+
+        <section aria-labelledby="titulo-quadro">
+            <h2 id="titulo-quadro">Quadro de tarefas</h2>
+
+            <section aria-labelledby="titulo-a-fazer">
+                <h3 id="titulo-a-fazer">A fazer</h3>
+
+                <ul>
+                    <li>
+                        <article>
+                            <h4>Criar estrutura da página inicial</h4>
+                            <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
+                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
+                            <p><strong>Prazo:</strong> <time datetime="2026-08-14">14/08/2026</time></p>
+                            <p><strong>Prioridade:</strong> Alta</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <h4>Pesquisar elementos semânticos do HTML</h4>
+                            <p><strong>Projeto:</strong> Estudos de Desenvolvimento Frontend</p>
+                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
+                            <p><strong>Prazo:</strong> <time datetime="2026-08-16">16/08/2026</time></p>
+                            <p><strong>Prioridade:</strong> Média</p>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="titulo-em-andamento">
+                <h3 id="titulo-em-andamento">Em andamento</h3>
+
+                <ul>
+                    <li>
+                        <article>
+                            <h4>Elaborar cartões de tarefas</h4>
+                            <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
+                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
+                            <p><strong>Prazo:</strong> <time datetime="2026-08-13">13/08/2026</time></p>
+                            <p><strong>Prioridade:</strong> Alta</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <h4>Revisar conceitos de acessibilidade</h4>
+                            <p><strong>Projeto:</strong> Estudos de Desenvolvimento Frontend</p>
+                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
+                            <p><strong>Prazo:</strong> <time datetime="2026-08-18">18/08/2026</time></p>
+                            <p><strong>Prioridade:</strong> Média</p>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="titulo-em-revisao">
+                <h3 id="titulo-em-revisao">Em revisão</h3>
+
+                <ul>
+                    <li>
+                        <article>
+                            <h4>Validar a hierarquia de cabeçalhos</h4>
+                            <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
+                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
+                            <p><strong>Prazo:</strong> <time datetime="2026-08-12">12/08/2026</time></p>
+                            <p><strong>Prioridade:</strong> Alta</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <h4>Conferir rótulos dos formulários</h4>
+                            <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
+                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
+                            <p><strong>Prazo:</strong> <time datetime="2026-08-12">12/08/2026</time></p>
+                            <p><strong>Prioridade:</strong> Média</p>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="titulo-concluida">
+                <h3 id="titulo-concluida">Concluída</h3>
+
+                <ul>
+                    <li>
+                        <article>
+                            <h4>Criar o repositório da disciplina</h4>
+                            <p><strong>Projeto:</strong> Organização Acadêmica</p>
+                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
+                            <p><strong>Prazo:</strong> <time datetime="2026-08-11">11/08/2026</time></p>
+                            <p><strong>Prioridade:</strong> Alta</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <h4>Organizar os requisitos da primeira entrega</h4>
+                            <p><strong>Projeto:</strong> Organização Acadêmica</p>
+                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
+                            <p><strong>Prazo:</strong> <time datetime="2026-08-11">11/08/2026</time></p>
+                            <p><strong>Prioridade:</strong> Baixa</p>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <p>Euclides Carlos Pilon Neto — Desenvolvimento Frontend — 2026.2</p>
+    </footer>
+</body>
+</html>
