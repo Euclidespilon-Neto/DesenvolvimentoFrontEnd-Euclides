@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quadro de Tarefas Acadêmicas</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -11,19 +12,19 @@
     </header>
 
     <main>
-        <section aria-labelledby="titulo-busca-filtros">
+        <section class="filters-panel" aria-labelledby="titulo-busca-filtros">
             <h2 id="titulo-busca-filtros">Busca e filtros</h2>
 
             <form>
-                <fieldset>
+                <fieldset class="filters-grid">
                     <legend>Encontre tarefas no quadro</legend>
 
-                    <p>
+                    <p class="form-field search-field">
                         <label for="busca-titulo">Buscar pelo título da tarefa:</label>
                         <input type="search" id="busca-titulo" name="busca-titulo">
                     </p>
 
-                    <p>
+                    <p class="form-field">
                         <label for="filtro-status">Filtrar por status:</label>
                         <select id="filtro-status" name="filtro-status">
                             <option value="todos">Todos os status</option>
@@ -34,7 +35,7 @@
                         </select>
                     </p>
 
-                    <p>
+                    <p class="form-field">
                         <label for="filtro-prioridade">Filtrar por prioridade:</label>
                         <select id="filtro-prioridade" name="filtro-prioridade">
                             <option value="todas">Todas as prioridades</option>
@@ -44,114 +45,134 @@
                         </select>
                     </p>
 
-                    <button type="submit">Aplicar filtros</button>
-                    <button type="reset">Limpar filtros</button>
+                    <div class="form-actions">
+                        <button type="submit">Aplicar filtros</button>
+                        <button type="reset">Limpar filtros</button>
+                    </div>
                 </fieldset>
             </form>
         </section>
 
-        <section aria-labelledby="titulo-quadro">
+        <section class="board-section" aria-labelledby="titulo-quadro">
             <h2 id="titulo-quadro">Quadro de tarefas</h2>
 
-            <section aria-labelledby="titulo-a-fazer">
+            <div class="task-board">
+            <section class="status-column status-todo" aria-labelledby="titulo-a-fazer">
                 <h3 id="titulo-a-fazer">A fazer</h3>
 
-                <ul>
+                <ul class="task-list">
                     <li>
-                        <article>
-                            <h4>Criar estrutura da página inicial</h4>
+                        <article class="task-card">
+                            <header class="task-card-header">
+                                <h4 title="Criar estrutura da página inicial">Criar estrutura da página inicial</h4>
+                                <span class="priority priority-high">Alta</span>
+                            </header>
                             <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
                             <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p><strong>Prazo:</strong> <time datetime="2026-08-14">14/08/2026</time></p>
-                            <p><strong>Prioridade:</strong> Alta</p>
+                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-14">14/08/2026</time></p>
                         </article>
                     </li>
                     <li>
-                        <article>
-                            <h4>Pesquisar elementos semânticos do HTML</h4>
+                        <article class="task-card">
+                            <header class="task-card-header">
+                                <h4 title="Pesquisar elementos semânticos do HTML">Pesquisar elementos semânticos do HTML</h4>
+                                <span class="priority priority-medium">Média</span>
+                            </header>
                             <p><strong>Projeto:</strong> Estudos de Desenvolvimento Frontend</p>
                             <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p><strong>Prazo:</strong> <time datetime="2026-08-16">16/08/2026</time></p>
-                            <p><strong>Prioridade:</strong> Média</p>
+                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-16">16/08/2026</time></p>
                         </article>
                     </li>
                 </ul>
             </section>
 
-            <section aria-labelledby="titulo-em-andamento">
+            <section class="status-column status-progress" aria-labelledby="titulo-em-andamento">
                 <h3 id="titulo-em-andamento">Em andamento</h3>
 
-                <ul>
+                <ul class="task-list">
                     <li>
-                        <article>
-                            <h4>Elaborar cartões de tarefas</h4>
+                        <article class="task-card">
+                            <header class="task-card-header">
+                                <h4 title="Elaborar cartões de tarefas">Elaborar cartões de tarefas</h4>
+                                <span class="priority priority-high">Alta</span>
+                            </header>
                             <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
                             <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p><strong>Prazo:</strong> <time datetime="2026-08-13">13/08/2026</time></p>
-                            <p><strong>Prioridade:</strong> Alta</p>
+                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-13">13/08/2026</time></p>
                         </article>
                     </li>
                     <li>
-                        <article>
-                            <h4>Revisar conceitos de acessibilidade</h4>
+                        <article class="task-card">
+                            <header class="task-card-header">
+                                <h4 title="Revisar conceitos de acessibilidade">Revisar conceitos de acessibilidade</h4>
+                                <span class="priority priority-medium">Média</span>
+                            </header>
                             <p><strong>Projeto:</strong> Estudos de Desenvolvimento Frontend</p>
                             <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p><strong>Prazo:</strong> <time datetime="2026-08-18">18/08/2026</time></p>
-                            <p><strong>Prioridade:</strong> Média</p>
+                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-18">18/08/2026</time></p>
                         </article>
                     </li>
                 </ul>
             </section>
 
-            <section aria-labelledby="titulo-em-revisao">
+            <section class="status-column status-review" aria-labelledby="titulo-em-revisao">
                 <h3 id="titulo-em-revisao">Em revisão</h3>
 
-                <ul>
+                <ul class="task-list">
                     <li>
-                        <article>
-                            <h4>Validar a hierarquia de cabeçalhos</h4>
+                        <article class="task-card">
+                            <header class="task-card-header">
+                                <h4 title="Validar a hierarquia de cabeçalhos">Validar a hierarquia de cabeçalhos</h4>
+                                <span class="priority priority-high">Alta</span>
+                            </header>
                             <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
                             <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p><strong>Prazo:</strong> <time datetime="2026-08-12">12/08/2026</time></p>
-                            <p><strong>Prioridade:</strong> Alta</p>
+                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-12">12/08/2026</time></p>
                         </article>
                     </li>
                     <li>
-                        <article>
-                            <h4>Conferir rótulos dos formulários</h4>
+                        <article class="task-card">
+                            <header class="task-card-header">
+                                <h4 title="Conferir rótulos dos formulários">Conferir rótulos dos formulários</h4>
+                                <span class="priority priority-medium">Média</span>
+                            </header>
                             <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
                             <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p><strong>Prazo:</strong> <time datetime="2026-08-12">12/08/2026</time></p>
-                            <p><strong>Prioridade:</strong> Média</p>
+                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-12">12/08/2026</time></p>
                         </article>
                     </li>
                 </ul>
             </section>
 
-            <section aria-labelledby="titulo-concluida">
+            <section class="status-column status-done" aria-labelledby="titulo-concluida">
                 <h3 id="titulo-concluida">Concluída</h3>
 
-                <ul>
+                <ul class="task-list">
                     <li>
-                        <article>
-                            <h4>Criar o repositório da disciplina</h4>
+                        <article class="task-card">
+                            <header class="task-card-header">
+                                <h4 title="Criar o repositório da disciplina">Criar o repositório da disciplina</h4>
+                                <span class="priority priority-high">Alta</span>
+                            </header>
                             <p><strong>Projeto:</strong> Organização Acadêmica</p>
                             <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p><strong>Prazo:</strong> <time datetime="2026-08-11">11/08/2026</time></p>
-                            <p><strong>Prioridade:</strong> Alta</p>
+                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-11">11/08/2026</time></p>
                         </article>
                     </li>
                     <li>
-                        <article>
-                            <h4>Organizar os requisitos da primeira entrega</h4>
+                        <article class="task-card">
+                            <header class="task-card-header">
+                                <h4 title="Organizar os requisitos da primeira entrega">Organizar os requisitos da primeira entrega</h4>
+                                <span class="priority priority-low">Baixa</span>
+                            </header>
                             <p><strong>Projeto:</strong> Organização Acadêmica</p>
                             <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p><strong>Prazo:</strong> <time datetime="2026-08-11">11/08/2026</time></p>
-                            <p><strong>Prioridade:</strong> Baixa</p>
+                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-11">11/08/2026</time></p>
                         </article>
                     </li>
                 </ul>
             </section>
+            </div>
         </section>
     </main>
 
