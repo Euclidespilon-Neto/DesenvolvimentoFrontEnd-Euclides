@@ -1,0 +1,76 @@
+{
+  "tarefas": [
+    {
+      "id": "t1",
+      "titulo": "Criar estrutura da página inicial",
+      "status": "a-fazer",
+      "prioridade": "alta",
+      "prazo": "2026-08-14",
+      "projeto": "Gerenciador de Tarefas Acadêmicas",
+      "responsavel": "Euclides Carlos Pilon Neto"
+    },
+    {
+      "id": "t2",
+      "titulo": "Pesquisar elementos semânticos do HTML",
+      "status": "a-fazer",
+      "prioridade": "media",
+      "prazo": "2026-08-16",
+      "projeto": "Estudos de Desenvolvimento Frontend",
+      "responsavel": "Euclides Carlos Pilon Neto"
+    },
+    {
+      "id": "t3",
+      "titulo": "Elaborar cartões de tarefas",
+      "status": "em-andamento",
+      "prioridade": "alta",
+      "prazo": "2026-08-13",
+      "projeto": "Gerenciador de Tarefas Acadêmicas",
+      "responsavel": "Euclides Carlos Pilon Neto"
+    },
+    {
+      "id": "t4",
+      "titulo": "Revisar conceitos de acessibilidade",
+      "status": "em-andamento",
+      "prioridade": "media",
+      "prazo": "2026-08-18",
+      "projeto": "Estudos de Desenvolvimento Frontend",
+      "responsavel": "Euclides Carlos Pilon Neto"
+    },
+    {
+      "id": "t5",
+      "titulo": "Validar a hierarquia de cabeçalhos",
+      "status": "em-revisao",
+      "prioridade": "alta",
+      "prazo": "2026-08-12",
+      "projeto": "Gerenciador de Tarefas Acadêmicas",
+      "responsavel": "Euclides Carlos Pilon Neto"
+    },
+    {
+      "id": "t6",
+      "titulo": "Conferir rótulos dos formulários",
+      "status": "em-revisao",
+      "prioridade": "media",
+      "prazo": "2026-08-12",
+      "projeto": "Gerenciador de Tarefas Acadêmicas",
+      "responsavel": "Euclides Carlos Pilon Neto"
+    },
+    {
+      "id": "t7",
+      "titulo": "Criar o repositório da disciplina",
+      "status": "concluida",
+      "prioridade": "alta",
+      "prazo": "2026-08-11",
+      "projeto": "Organização Acadêmica",
+      "responsavel": "Euclides Carlos Pilon Neto"
+    },
+    {
+      "id": "t8",
+      "titulo": "Organizar os requisitos da primeira entrega",
+      "status": "concluida",
+      "prioridade": "baixa",
+      "prazo": "2026-08-11",
+      "projeto": "Organização Acadêmica",
+      "responsavel": "Euclides Carlos Pilon Neto"
+    }
+  ]
+}

@@ -16,7 +16,7 @@
             <h2 id="titulo-busca-filtros">Busca e filtros</h2>
 
             <form>
-                <fieldset class="filters-grid">
+                <fieldset class="filters-grid" disabled>
                     <legend>Encontre tarefas no quadro</legend>
 
                     <p class="form-field search-field">
@@ -51,126 +51,37 @@
                     </div>
                 </fieldset>
             </form>
+            <p>Busca e filtros ainda não estão disponíveis nesta etapa.</p>
         </section>
 
         <section class="board-section" aria-labelledby="titulo-quadro">
             <h2 id="titulo-quadro">Quadro de tarefas</h2>
 
-            <div class="task-board">
+            <p data-estado role="status" aria-live="polite"></p>
+            <noscript>Ative o JavaScript para carregar as tarefas.</noscript>
+            <div class="task-board" data-quadro hidden>
             <section class="status-column status-todo" aria-labelledby="titulo-a-fazer">
                 <h3 id="titulo-a-fazer">A fazer</h3>
 
-                <ul class="task-list">
-                    <li>
-                        <article class="task-card">
-                            <header class="task-card-header">
-                                <h4 title="Criar estrutura da página inicial">Criar estrutura da página inicial</h4>
-                                <span class="priority priority-high">Alta</span>
-                            </header>
-                            <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
-                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-14">14/08/2026</time></p>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="task-card">
-                            <header class="task-card-header">
-                                <h4 title="Pesquisar elementos semânticos do HTML">Pesquisar elementos semânticos do HTML</h4>
-                                <span class="priority priority-medium">Média</span>
-                            </header>
-                            <p><strong>Projeto:</strong> Estudos de Desenvolvimento Frontend</p>
-                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-16">16/08/2026</time></p>
-                        </article>
-                    </li>
-                </ul>
+                <ul class="task-list" data-lista-status="a-fazer"></ul>
             </section>
 
             <section class="status-column status-progress" aria-labelledby="titulo-em-andamento">
                 <h3 id="titulo-em-andamento">Em andamento</h3>
 
-                <ul class="task-list">
-                    <li>
-                        <article class="task-card">
-                            <header class="task-card-header">
-                                <h4 title="Elaborar cartões de tarefas">Elaborar cartões de tarefas</h4>
-                                <span class="priority priority-high">Alta</span>
-                            </header>
-                            <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
-                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-13">13/08/2026</time></p>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="task-card">
-                            <header class="task-card-header">
-                                <h4 title="Revisar conceitos de acessibilidade">Revisar conceitos de acessibilidade</h4>
-                                <span class="priority priority-medium">Média</span>
-                            </header>
-                            <p><strong>Projeto:</strong> Estudos de Desenvolvimento Frontend</p>
-                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-18">18/08/2026</time></p>
-                        </article>
-                    </li>
-                </ul>
+                <ul class="task-list" data-lista-status="em-andamento"></ul>
             </section>
 
             <section class="status-column status-review" aria-labelledby="titulo-em-revisao">
                 <h3 id="titulo-em-revisao">Em revisão</h3>
 
-                <ul class="task-list">
-                    <li>
-                        <article class="task-card">
-                            <header class="task-card-header">
-                                <h4 title="Validar a hierarquia de cabeçalhos">Validar a hierarquia de cabeçalhos</h4>
-                                <span class="priority priority-high">Alta</span>
-                            </header>
-                            <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
-                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-12">12/08/2026</time></p>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="task-card">
-                            <header class="task-card-header">
-                                <h4 title="Conferir rótulos dos formulários">Conferir rótulos dos formulários</h4>
-                                <span class="priority priority-medium">Média</span>
-                            </header>
-                            <p><strong>Projeto:</strong> Gerenciador de Tarefas Acadêmicas</p>
-                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-12">12/08/2026</time></p>
-                        </article>
-                    </li>
-                </ul>
+                <ul class="task-list" data-lista-status="em-revisao"></ul>
             </section>
 
             <section class="status-column status-done" aria-labelledby="titulo-concluida">
                 <h3 id="titulo-concluida">Concluída</h3>
 
-                <ul class="task-list">
-                    <li>
-                        <article class="task-card">
-                            <header class="task-card-header">
-                                <h4 title="Criar o repositório da disciplina">Criar o repositório da disciplina</h4>
-                                <span class="priority priority-high">Alta</span>
-                            </header>
-                            <p><strong>Projeto:</strong> Organização Acadêmica</p>
-                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-11">11/08/2026</time></p>
-                        </article>
-                    </li>
-                    <li>
-                        <article class="task-card">
-                            <header class="task-card-header">
-                                <h4 title="Organizar os requisitos da primeira entrega">Organizar os requisitos da primeira entrega</h4>
-                                <span class="priority priority-low">Baixa</span>
-                            </header>
-                            <p><strong>Projeto:</strong> Organização Acadêmica</p>
-                            <p><strong>Responsável:</strong> Euclides Carlos Pilon Neto</p>
-                            <p class="deadline"><strong>Prazo:</strong> <time datetime="2026-08-11">11/08/2026</time></p>
-                        </article>
-                    </li>
-                </ul>
+                <ul class="task-list" data-lista-status="concluida"></ul>
             </section>
             </div>
         </section>
@@ -179,5 +90,6 @@
     <footer>
         <p>Euclides Carlos Pilon Neto — Desenvolvimento Frontend — 2026.2</p>
     </footer>
+    <script type="module" src="./js/app.js"></script>
 </body>
 </html>

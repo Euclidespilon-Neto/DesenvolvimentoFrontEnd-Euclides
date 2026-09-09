@@ -260,3 +260,19 @@ body > footer p {
         width: auto;
     }
 }
+
+/* E3: hidden deve prevalecer sobre display: grid/flex. */
+[hidden] { display: none !important; }
+
+[data-estado]:not(:empty) {
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-left: 0.3rem solid var(--color-primary);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+}
+[data-estado][data-situacao="carregando"] { background: #eaf0ff; }
+[data-estado][data-situacao="sucesso"] { border-left-color: #168253; }
+[data-estado][data-situacao="vazio"] { border-left-color: #9a6400; background: #fff4d6; }
+[data-estado][data-situacao="erro"] { border-left-color: #b42318; background: #ffebe8; }
+:disabled { cursor: not-allowed; }
