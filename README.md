@@ -46,18 +46,3 @@ Sempre restaure os arquivos após provocar cada falha.
    vazio. Em Elements, após o JavaScript executar, ele já estará preenchido.
 8. Console: verifique que o caminho normal de sucesso não apresenta erros.
 
-## Instalação no repositório
-Faça uma cópia de segurança do seu projeto. Copie o conteúdo desta pasta
-para a raiz do repositório clonado, substituindo index.html, styles.css e
-README.md e acrescentando dados.json e a pasta js.
-Não envie o ZIP como substituto dos arquivos de código.
-
-Revise, teste e registre commits reais. Faça push/sincronização para enviar
-ao GitHub: salvar no VS Code ou fazer commit local não envia por si só.
-
-## Para compreender antes do Q3
-- O primeiro await aguarda a resposta inicial; o segundo lê e interpreta o corpo.
-- 404 é uma resposta HTTP, não rejeição automática do fetch.
-- O vazio é uma resposta válida sem tarefas, fora do catch.
-- A renderização recebe dados e não conhece sua origem.
-- A região viva já existe quando textContent muda.
