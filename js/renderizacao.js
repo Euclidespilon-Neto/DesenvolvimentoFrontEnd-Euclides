@@ -44,8 +44,20 @@ export function criarCartao(tarefa) {
     if (tarefa.projeto) cartao.append(criarCampo("Projeto", tarefa.projeto));
     if (tarefa.responsavel) cartao.append(criarCampo("Responsável", tarefa.responsavel));
     cartao.append(prazo);
+
+    const botao = document.createElement("button");
+    botao.type = "button";
+    botao.dataset.acao = "ver-detalhes";
+
+    const textoBotao = document.createElement("span");
+    textoBotao.textContent = "Ver detalhes";
+
+    botao.append(textoBotao);
+    cartao.append(botao);
+
     item.append(cartao);
-    return item;
+        return item;
+    
 }
 
 export function renderizarTarefas(tarefas, quadro) {

@@ -119,4 +119,25 @@ formulario.addEventListener("reset", (evento) => {
     renderizarAplicacao();
 });
 
+const quadro = document.querySelector("[data-quadro]");
+
+quadro.addEventListener("click", (evento) => {
+    const botao = evento.target.closest(
+        'button[data-acao="ver-detalhes"]'
+    );
+
+    if (!botao || !quadro.contains(botao)) return;
+
+    const cartao = botao.closest("[data-id]");
+    if (!cartao) return;
+
+    const tarefa = estado.tarefas.find(
+        (tarefa) => String(tarefa.id) === cartao.dataset.id
+    );
+
+    if (!tarefa) return;
+
+    console.log("Detalhes da tarefa:", tarefa);
+});
+
 iniciarAplicacao();
