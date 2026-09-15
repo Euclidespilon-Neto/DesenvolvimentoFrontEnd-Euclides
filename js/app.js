@@ -1,16 +1,32 @@
 import { carregarTarefas } from "./api.js";
 import { renderizarEstado } from "./estados.js";
 
+const estado = {
+    tarefas: [],
+    busca: "",
+    status: "todos",
+    prioridade: "todas",
+    ordenacao: "prazo-asc",
+    carregamento: "carregando",
+    erro: null
+};
+
 async function iniciarAplicacao() {
+    estado.carregamento = "carregando";
+    estado.erro = null;
     renderizarEstado("carregando");
     try {
-        const tarefas = await carregarTarefas();
-        if (tarefas.length === 0) {
+        estado.tarefas = await carregarTarefas();
+        estado.carregamento = "sucesso";
+        estado.erro = null;
+        if (estado.tarefas.length === 0) {
             renderizarEstado("vazio");
             return;
         }
-        renderizarEstado("sucesso", tarefas);
+        renderizarEstado("sucesso", estado.tarefas);
     } catch (erro) {
+        estado.carregamento = "erro";
+        estado.erro = erro;
         let mensagem;
         if (erro.name === "TypeError") {
             mensagem = "Falha de rede. Verifique a conexão e se o servidor local está ativo; depois recarregue a página.";
