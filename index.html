@@ -15,7 +15,7 @@
         <section class="filters-panel" aria-labelledby="titulo-busca-filtros">
             <h2 id="titulo-busca-filtros">Busca e filtros</h2>
 
-            <form>
+            <form id="form-filtros">
                 <fieldset class="filters-grid" disabled>
                     <legend>Encontre tarefas no quadro</legend>
 
@@ -44,14 +44,19 @@
                             <option value="alta">Alta</option>
                         </select>
                     </p>
-
+                    <p class="form-field">
+                    <label for="ordenacao">Ordenar por prazo:</label>
+                    <select id="ordenacao" name="ordenacao">
+                        <option value="prazo-asc">Mais próximo primeiro</option>
+                        <option value="prazo-desc">Mais distante primeiro</option>
+                    </select>
+                </p>
                     <div class="form-actions">
                         <button type="submit">Aplicar filtros</button>
                         <button type="reset">Limpar filtros</button>
                     </div>
                 </fieldset>
             </form>
-            <p>Busca e filtros ainda não estão disponíveis nesta etapa.</p>
         </section>
 
         <section class="board-section" aria-labelledby="titulo-quadro">

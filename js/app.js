@@ -12,7 +12,19 @@ const estado = {
     erro: null
 };
 
+const formulario = document.querySelector("#form-filtros");
+const camposFiltros = formulario.querySelector("fieldset");
+const campoBusca = document.querySelector("#busca-titulo");
+const filtroStatus = document.querySelector("#filtro-status");
+const filtroPrioridade = document.querySelector("#filtro-prioridade");
+const campoOrdenacao = document.querySelector("#ordenacao");
+
 function renderizarAplicacao() {
+    camposFiltros.disabled = estado.carregamento !== "sucesso";
+    campoBusca.value = estado.busca;
+    filtroStatus.value = estado.status;
+    filtroPrioridade.value = estado.prioridade;
+    campoOrdenacao.value = estado.ordenacao;
     if (estado.carregamento === "carregando") {
         renderizarEstado("carregando");
         return;
@@ -70,5 +82,30 @@ async function iniciarAplicacao() {
 
     renderizarAplicacao();
 }
+
+campoBusca.addEventListener("input", (evento) => {
+    estado.busca = evento.currentTarget.value;
+    renderizarAplicacao();
+});
+
+filtroStatus.addEventListener("change", (evento) => {
+    estado.status = evento.currentTarget.value;
+    renderizarAplicacao();
+});
+
+filtroPrioridade.addEventListener("change", (evento) => {
+    estado.prioridade = evento.currentTarget.value;
+    renderizarAplicacao();
+});
+
+campoOrdenacao.addEventListener("change", (evento) => {
+    estado.ordenacao = evento.currentTarget.value;
+    renderizarAplicacao();
+});
+
+formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    renderizarAplicacao();
+});
 
 iniciarAplicacao();
