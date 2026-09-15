@@ -1,5 +1,6 @@
 import { carregarTarefas } from "./api.js";
 import { renderizarEstado } from "./estados.js";
+import { selecionarTarefas } from "./selecao.js";
 
 const estado = {
     tarefas: [],
@@ -23,7 +24,8 @@ async function iniciarAplicacao() {
             renderizarEstado("vazio");
             return;
         }
-        renderizarEstado("sucesso", estado.tarefas);
+        const tarefasVisiveis = selecionarTarefas(estado);
+        renderizarEstado("sucesso", tarefasVisiveis);
     } catch (erro) {
         estado.carregamento = "erro";
         estado.erro = erro;
