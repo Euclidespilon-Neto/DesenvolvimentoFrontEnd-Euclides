@@ -22,6 +22,9 @@ export function renderizarEstado(estado, dados) {
         case "erro":
             mensagem.textContent = dados;
             break;
+        case "sem-resultados":
+        mensagem.textContent = "Nenhuma tarefa corresponde aos critérios. Altere a busca ou limpe os filtros.";
+        break;
         default:
             throw new Error("Estado desconhecido: " + estado);
     }

@@ -12,36 +12,63 @@ const estado = {
     erro: null
 };
 
+function renderizarAplicacao() {
+    if (estado.carregamento === "carregando") {
+        renderizarEstado("carregando");
+        return;
+    }
+
+    if (estado.carregamento === "erro") {
+        const erro = estado.erro;
+        let mensagem;
+
+        if (erro.name === "TypeError") {
+            mensagem = "Falha de rede. Verifique a conexão e o servidor local.";
+        } else if (erro.name === "SyntaxError") {
+            mensagem = "Falha de formato. Confira o arquivo dados.json.";
+        } else if (erro.name === "ErroProtocolo") {
+            mensagem = "Falha de protocolo: HTTP " + erro.status + ".";
+        } else {
+            mensagem = "Não foi possível carregar as tarefas.";
+        }
+
+        renderizarEstado("erro", mensagem);
+        return;
+    }
+
+    const visiveis = selecionarTarefas(estado);
+
+    if (estado.tarefas.length === 0) {
+        renderizarEstado("vazio");
+        return;
+    }
+
+    if (visiveis.length === 0) {
+        renderizarEstado("sem-resultados");
+        return;
+    }
+
+    renderizarEstado("sucesso", visiveis);
+
+    const mensagem = document.querySelector("[data-estado]");
+    mensagem.textContent =
+        visiveis.length + " de " + estado.tarefas.length + " tarefas";
+}
+
 async function iniciarAplicacao() {
     estado.carregamento = "carregando";
     estado.erro = null;
-    renderizarEstado("carregando");
+    renderizarAplicacao();
+
     try {
         estado.tarefas = await carregarTarefas();
         estado.carregamento = "sucesso";
-        estado.erro = null;
-        if (estado.tarefas.length === 0) {
-            renderizarEstado("vazio");
-            return;
-        }
-        const tarefasVisiveis = selecionarTarefas(estado);
-        renderizarEstado("sucesso", tarefasVisiveis);
     } catch (erro) {
         estado.carregamento = "erro";
         estado.erro = erro;
-        let mensagem;
-        if (erro.name === "TypeError") {
-            mensagem = "Falha de rede. Verifique a conexão e se o servidor local está ativo; depois recarregue a página.";
-        } else if (erro.name === "SyntaxError") {
-            mensagem = "Falha de formato. Confira a sintaxe e os campos do arquivo dados.json; depois recarregue a página.";
-        } else if (erro.name === "ErroProtocolo") {
-            mensagem = "Falha de protocolo: HTTP " + erro.status + ". Confira o caminho do arquivo dados.json e recarregue a página.";
-        } else {
-            mensagem = "Não foi possível carregar as tarefas. Confira o Console para identificar o problema.";
-            console.error(erro);
-        }
-        renderizarEstado("erro", mensagem);
     }
+
+    renderizarAplicacao();
 }
 
 iniciarAplicacao();
