@@ -108,4 +108,15 @@ formulario.addEventListener("submit", (evento) => {
     renderizarAplicacao();
 });
 
+formulario.addEventListener("reset", (evento) => {
+    evento.preventDefault();
+
+    estado.busca = "";
+    estado.status = "todos";
+    estado.prioridade = "todas";
+    estado.ordenacao = "prazo-asc";
+
+    renderizarAplicacao();
+});
+
 iniciarAplicacao();
