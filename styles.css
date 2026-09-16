@@ -1,12 +1,12 @@
 :root {
-    --color-background: #f4f6fb;
-    --color-surface: #ffffff;
-    --color-text: #202533;
-    --color-muted: #626b7d;
-    --color-primary: #3157d5;
-    --color-border: #dbe0ea;
-    --radius: 0.75rem;
-    --shadow: 0 0.3rem 1rem rgb(32 37 51 / 0.08);
+    --color-background: #f5f3ed;
+    --color-surface: #fffefa;
+    --color-text: #24282f;
+    --color-muted: #596475;
+    --color-primary: #315c8c;
+    --color-border: #d8d5cc;
+    --radius: 0.5rem;
+    --shadow: 0 1px 2px rgb(36 40 47 / 0.05), 0 4px 12px rgb(36 40 47 / 0.06);
 }
 
 * {
@@ -21,15 +21,15 @@ body {
     margin: 0;
     color: var(--color-text);
     background: var(--color-background);
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.5;
+    font-family: Verdana, "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
 }
 
 body > header,
 body > footer {
     padding: 1.25rem;
     color: #ffffff;
-    background: #18213a;
+    background: #243447;
 }
 
 h1,
@@ -42,10 +42,13 @@ p {
 
 h1 {
     margin-bottom: 0;
-    font-size: clamp(1.65rem, 1.2rem + 3vw, 3rem);
+    font-size: clamp(1.55rem, 1.2rem + 2vw, 2.35rem);
+    line-height: 1.2;
 }
 
 main {
+    width: min(100%, 90rem);
+    margin-inline: auto;
     padding: 1rem;
 }
 
@@ -55,6 +58,7 @@ main {
 }
 
 .filters-grid {
+    min-inline-size: 0;
     margin: 0;
     padding: 1rem;
     background: var(--color-surface);
@@ -82,8 +86,8 @@ button {
     min-height: 2.75rem;
     padding: 0.65rem 0.75rem;
     color: inherit;
-    background: #ffffff;
-    border: 0.0625rem solid #aeb6c6;
+    background: #fffefa;
+    border: 0.0625rem solid #8d8a82;
     border-radius: 0.45rem;
     font: inherit;
 }
@@ -98,7 +102,7 @@ button {
 
 button[type="reset"] {
     color: var(--color-primary);
-    background: #ffffff;
+    background: #fffefa;
 }
 
 input:focus-visible,
@@ -108,8 +112,14 @@ button:focus-visible {
     outline-offset: 0.15rem;
 }
 
-button:hover {
-    filter: brightness(0.92);
+button:hover:not(:disabled) {
+    background: #274b73;
+    border-color: #274b73;
+}
+
+button[type="reset"]:hover:not(:disabled) {
+    color: #274b73;
+    background: #e5ebf1;
 }
 
 .form-actions {
@@ -130,14 +140,15 @@ button:hover {
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    background: #e9edf5;
-    border-top: 0.3rem solid var(--color-primary);
+    background: #ebe9e3;
+    border-top: 0.2rem solid var(--color-primary);
     border-radius: var(--radius);
 }
 
-.status-progress { border-top-color: #d98200; }
-.status-review { border-top-color: #7047c7; }
-.status-done { border-top-color: #168253; }
+.status-todo { border-top-color: #527aa3; }
+.status-progress { border-top-color: #c47a30; }
+.status-review { border-top-color: #8065a8; }
+.status-done { border-top-color: #4f8068; }
 
 .task-list {
     min-width: 0;
@@ -164,7 +175,7 @@ button:hover {
     padding: 1rem;
     background: var(--color-surface);
     border: 0.0625rem solid var(--color-border);
-    border-radius: 0.6rem;
+    border-radius: 0.45rem;
     box-shadow: var(--shadow);
 }
 
@@ -179,10 +190,10 @@ button:hover {
 .task-card h4 {
     min-width: 0;
     flex: 1;
-    overflow: hidden;
     margin-bottom: 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    font-size: 1rem;
+    line-height: 1.4;
 }
 
 .task-card p {
@@ -197,24 +208,24 @@ button:hover {
     display: inline-block;
     min-height: 1.5rem;
     padding: 0.2rem 0.55rem;
-    border-radius: 999rem;
+    border-radius: 0.3rem;
     font-size: 0.75rem;
     font-weight: 700;
 }
 
 .priority-high {
-    color: #8c1c13;
-    background: #ffe0dc;
+    color: #8b352d;
+    background: #f7e2de;
 }
 
 .priority-medium {
-    color: #765000;
-    background: #fff0bd;
+    color: #795719;
+    background: #f5e8c7;
 }
 
 .priority-low {
-    color: #176b45;
-    background: #d8f5e8;
+    color: #38644f;
+    background: #deeee5;
 }
 
 .deadline {
@@ -227,7 +238,7 @@ body > footer p {
 }
 
 /*
- * Ponto de quebra em 48rem: a partir desta largura os três filtros cabem
+ * Ponto de quebra em 48rem: a partir desta largura os controles cabem
  * lado a lado sem comprimir os rótulos nem criar rolagem horizontal.
  */
 @media (min-width: 48rem) {
@@ -237,7 +248,7 @@ body > footer p {
 
     .filters-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         align-items: end;
         gap: 1rem;
     }
@@ -267,12 +278,55 @@ body > footer p {
 [data-estado]:not(:empty) {
     padding: 1rem;
     border: 1px solid var(--color-border);
-    border-left: 0.3rem solid var(--color-primary);
+    border-left: 0.2rem solid var(--color-primary);
     border-radius: var(--radius);
     background: var(--color-surface);
 }
-[data-estado][data-situacao="carregando"] { background: #eaf0ff; }
-[data-estado][data-situacao="sucesso"] { border-left-color: #168253; }
+[data-estado][data-situacao="carregando"] { background: #eaf0f6; }
+[data-estado][data-situacao="sucesso"] { border-left-color: #4f8068; }
 [data-estado][data-situacao="vazio"] { border-left-color: #9a6400; background: #fff4d6; }
 [data-estado][data-situacao="erro"] { border-left-color: #b42318; background: #ffebe8; }
 :disabled { cursor: not-allowed; }
+
+/* Identidade visual e hierarquia do quadro acadêmico. */
+h1, h2, h3, h4 {
+    font-family: "Trebuchet MS", Verdana, sans-serif;
+}
+
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.1rem; }
+
+body > header {
+    border-bottom: 4px solid var(--color-primary);
+}
+
+.filters-grid legend {
+    max-width: 100%;
+    padding-inline: 0.4rem;
+    color: #274b73;
+    font-weight: 700;
+}
+
+.form-field { min-width: 0; }
+
+.task-card button {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+}
+
+body > footer {
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+[data-estado][data-situacao="sem-resultados"] {
+    border-left-color: #9a6400;
+    background: #fff4d6;
+}
+
+/* Os quatro controles ocupam uma linha quando há espaço suficiente. */
+@media (min-width: 75rem) {
+    .filters-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
