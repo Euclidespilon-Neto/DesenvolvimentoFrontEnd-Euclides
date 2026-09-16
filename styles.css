@@ -29,6 +29,7 @@
     --color-footer-bg: #243447;
     --color-footer-text: #ffffff;
     --shadow-hover: 0 0.5rem 1.5rem rgb(36 40 47 / 0.18);
+    --page-gutter: clamp(0.75rem, 1.5vw, 2rem);
     --radius: 0.5rem;
     --shadow: 0 1px 2px rgb(36 40 47 / 0.05), 0 4px 12px rgb(36 40 47 / 0.06);
 }
@@ -107,9 +108,9 @@ h1 {
 }
 
 main {
-    width: min(100%, 90rem);
+    width: 100%;
     margin-inline: auto;
-    padding: 1rem;
+    padding: 1rem var(--page-gutter);
 }
 
 .filters-panel,
@@ -190,8 +191,8 @@ button[type="reset"]:hover:not(:disabled) {
 
 .task-board {
     display: grid;
-    /* Colunas limitadas em largura e alinhadas à esquerda. */
-    grid-template-columns: minmax(0, 20rem);
+    /* Trilhas flexíveis aproveitam a largura; filtros preservam o alinhamento à esquerda. */
+    grid-template-columns: minmax(0, 1fr);
     justify-content: start;
     align-items: stretch;
     gap: 1rem;
@@ -217,7 +218,7 @@ button[type="reset"]:hover:not(:disabled) {
     display: grid;
     grid-auto-rows: 1fr;
     flex: 1;
-    gap: 0.75rem;
+    gap: 1.25rem;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -234,7 +235,7 @@ button[type="reset"]:hover:not(:disabled) {
     display: flex;
     flex: 1;
     flex-direction: column;
-    padding: 1rem;
+    padding: 1.25rem;
     background: var(--color-surface);
     border: 0.0625rem solid var(--color-border);
     border-radius: 0.45rem;
@@ -245,22 +246,23 @@ button[type="reset"]:hover:not(:disabled) {
     min-width: 0;
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
     gap: 0.65rem;
-    margin-bottom: 0.85rem;
+    margin-bottom: 1rem;
 }
 
 .task-card h4 {
     min-width: 0;
-    flex: 1;
+    flex: 1 1 9rem;
     margin-bottom: 0;
     overflow-wrap: anywhere;
-    font-size: 1rem;
+    font-size: 1.125rem;
     line-height: 1.4;
 }
 
 .task-card p {
     overflow-wrap: anywhere;
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.65rem;
     color: var(--color-muted);
     font-size: 0.9rem;
 }
@@ -292,7 +294,7 @@ button[type="reset"]:hover:not(:disabled) {
 
 .deadline {
     margin-top: auto;
-    padding-top: 0.65rem;
+    padding-top: 1rem;
 }
 
 body > footer p {
@@ -305,7 +307,7 @@ body > footer p {
  */
 @media (min-width: 48rem) {
     main {
-        padding: 1.5rem;
+        padding: 1.5rem var(--page-gutter);
     }
 
     .filters-grid {
@@ -366,9 +368,9 @@ h3 { font-size: 1.1rem; }
 }
 
 .header-content {
-    width: min(100%, 90rem);
+    width: 100%;
     margin-inline: auto;
-    padding: 1.25rem 1rem;
+    padding: 1.25rem var(--page-gutter);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -398,7 +400,7 @@ h3 { font-size: 1.1rem; }
     border-color: var(--color-primary);
 }
 @media (min-width: 48rem) {
-    .header-content { padding-inline: 1.5rem; }
+    .header-content { padding-inline: var(--page-gutter); }
 }
 
 .filters-grid legend {
@@ -410,9 +412,33 @@ h3 { font-size: 1.1rem; }
 
 .form-field { min-width: 0; }
 
+/* Título e prazo orientam a leitura; metadados e ação têm menor peso. */
+.task-card p strong {
+    font-weight: 400;
+}
+
+.task-card .deadline {
+    color: var(--color-text);
+}
+
+.task-card .deadline strong,
+.task-card .deadline time {
+    font-weight: 700;
+}
+
 .task-card button {
-    margin-top: 0.75rem;
+    margin-top: 1rem;
     font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-surface);
+    border-color: var(--color-input-border);
+}
+
+.task-card button:hover:not(:disabled) {
+    color: var(--color-primary-hover);
+    background: var(--color-secondary-hover);
+    border-color: var(--color-primary);
 }
 
 body > footer {
@@ -452,11 +478,11 @@ body > footer {
 }
 
 @media (min-width: 40rem) {
-    .task-board { grid-template-columns: repeat(2, minmax(0, 20rem)); }
+    .task-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (min-width: 75rem) {
-    .task-board { grid-template-columns: repeat(4, minmax(0, 20rem)); }
+    .task-board { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
  .progress-section {
