@@ -11,7 +11,8 @@ const estado = {
     ordenacao: "prazo-asc",
     carregamento: "carregando",
     erro: null,
-    tema: "claro"
+    tema: "claro",
+    filtrosAbertos: false
 };
 
 const botaoTema = document.querySelector("#alternar-tema");
@@ -44,6 +45,9 @@ function renderizarProgressoGeral() {
 function atualizarColunas(visiveis) {
     // A visibilidade deriva dos dados, nunca da quantidade de cartões no DOM.
     const statusVisiveis = new Set(visiveis.map((tarefa) => tarefa.status));
+    document.querySelectorAll("[data-contagem]").forEach(item => {
+        item.textContent = visiveis.filter(t => t.status === item.dataset.contagem).length;
+    });
     quadro.querySelectorAll("[data-lista-status]").forEach((lista) => {
         lista.closest(".status-column").hidden = !statusVisiveis.has(lista.dataset.listaStatus);
     });
@@ -57,7 +61,22 @@ function renderizarTema() {
         : "Modo escuro";
 }
 
+function renderizarPainel() {
+    formulario.hidden = !estado.filtrosAbertos;
+    const toggle = document.querySelector("#abrir-filtros");
+    toggle.setAttribute("aria-expanded", String(estado.filtrosAbertos));
+    toggle.textContent = estado.filtrosAbertos ? "Recolher filtros" : "Mostrar filtros";
+    const ativos = Number(Boolean(estado.busca.trim())) + Number(estado.status !== "todos") + Number(estado.prioridade !== "todas");
+    document.querySelector("#filtros-ativos").textContent = ativos ? ativos + (ativos === 1 ? " filtro ativo" : " filtros ativos") : "";
+    document.querySelector("#limpar-rapido").hidden = !ativos && estado.ordenacao === "prazo-asc";
+    document.querySelector(".overview").hidden = estado.carregamento !== "sucesso";
+    document.querySelectorAll("[data-resumo]").forEach((item) => {
+        item.textContent = item.dataset.resumo === "total" ? estado.tarefas.length : estado.tarefas.filter(t => t.status === item.dataset.resumo).length;
+    });
+}
+
 function renderizarAplicacao() {
+    renderizarPainel();
     renderizarTema();
     renderizarProgressoGeral();
     camposFiltros.disabled = estado.carregamento !== "sucesso";
@@ -186,7 +205,46 @@ quadro.addEventListener("click", (evento) => {
 
     if (!tarefa) return;
 
-    console.log("Detalhes da tarefa:", tarefa);
+    abrirDetalhes(tarefa, botao);
 });
+
+const dialogo = document.querySelector("#detalhes");
+let origemDetalhes = null;
+const nomesStatus = {"a-fazer": "A fazer", "em-andamento": "Em andamento", "em-revisao": "Em revisão", "concluida": "Concluída"};
+function abrirDetalhes(tarefa, origem) {
+    origemDetalhes = origem;
+    document.querySelector("#detalhes-titulo").textContent = tarefa.titulo;
+    document.querySelector("#detalhes-status").textContent = nomesStatus[tarefa.status] || tarefa.status;
+    const lista = document.querySelector("#detalhes-campos");
+    lista.replaceChildren();
+    const prioridade = {alta: "Alta", media: "Média", baixa: "Baixa"}[tarefa.prioridade] || tarefa.prioridade;
+    for (const [nome, valor] of [["Projeto", tarefa.projeto], ["Responsável", tarefa.responsavel], ["Prioridade", prioridade], ["Prazo", tarefa.prazo?.split("-").reverse().join("/")]]) {
+        if (!valor) continue;
+        const termo = document.createElement("dt"); termo.textContent = nome;
+        const descricao = document.createElement("dd"); descricao.textContent = valor;
+        lista.append(termo, descricao);
+    }
+    dialogo.showModal();
+    document.body.classList.add("details-open");
+}
+document.querySelector("#fechar-detalhes").addEventListener("click", () => dialogo.close());
+dialogo.addEventListener("close", () => {
+    document.body.classList.remove("details-open");
+    if (origemDetalhes?.isConnected) origemDetalhes.focus();
+});
+document.querySelector("#abrir-filtros").addEventListener("click", () => {
+    estado.filtrosAbertos = !estado.filtrosAbertos;
+    renderizarAplicacao();
+});
+document.querySelector("#limpar-rapido").addEventListener("click", () => {
+    formulario.reset();
+    document.querySelector("#abrir-filtros").focus();
+});
+// Foto fixa opcional: coloque foto-perfil.jpg na pasta assets.
+const foto = document.querySelector("#foto-perfil");
+foto.addEventListener("load", () => { foto.hidden = false; });
+foto.addEventListener("error", () => { foto.hidden = true; });
+// Para usar sua foto, descomente a linha abaixo após copiar o arquivo.
+// foto.src = "./assets/foto-perfil.jpg";
 
 iniciarAplicacao();

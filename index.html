@@ -9,9 +9,10 @@
 <body>
     <header class="site-header">
         <div class="header-content">
-            <div class="site-identity">
+            <div class="profile"><div class="avatar" aria-label="Foto de Euclides Carlos Pilon Neto"><span aria-hidden="true">EP</span><img id="foto-perfil" alt="" hidden></div><div class="site-identity">
                 <h1>Tarefas acadêmicas</h1>
                 <p>Euclides Carlos Pilon Neto <span aria-hidden="true">·</span> 2026.2</p>
+            </div>
             </div>
             <button type="button" id="alternar-tema" class="theme-toggle" hidden>
                 <svg class="theme-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 13.5A8.5 8.5 0 0 1 10.5 3.5a8.5 8.5 0 1 0 10 10Z"/></svg>
@@ -23,9 +24,9 @@
 
     <main>
         <section class="filters-panel" aria-labelledby="titulo-busca-filtros">
-            <h2 id="titulo-busca-filtros">Busca e filtros</h2>
+            <div class="filter-heading"><h2 id="titulo-busca-filtros">Busca e filtros</h2><button id="abrir-filtros" type="button" aria-expanded="false" aria-controls="form-filtros">Mostrar filtros</button><span id="filtros-ativos"></span><button id="limpar-rapido" type="button" hidden>Limpar filtros</button></div>
 
-            <form id="form-filtros">
+            <form id="form-filtros" hidden>
                 <fieldset class="filters-grid" disabled>
                     <legend class="sr-only">Encontre tarefas no quadro</legend>
 
@@ -69,6 +70,13 @@
             </form>
         </section>
 
+        <section class="overview" aria-label="Resumo geral das tarefas" hidden>
+            <div><span>Total</span><strong data-resumo="total">0</strong></div>
+            <div class="status-todo"><span>A fazer</span><strong data-resumo="a-fazer">0</strong></div>
+            <div class="status-progress"><span>Em andamento</span><strong data-resumo="em-andamento">0</strong></div>
+            <div class="status-review"><span>Em revisão</span><strong data-resumo="em-revisao">0</strong></div>
+            <div class="status-done"><span>Concluídas</span><strong data-resumo="concluida">0</strong></div>
+        </section>
         <section class="progress-section" aria-labelledby="titulo-progresso" hidden>
             <div class="progress-header">
                 <h2 id="titulo-progresso">Andamento geral estimado</h2>
@@ -93,25 +101,25 @@
             <noscript>Ative o JavaScript para carregar as tarefas.</noscript>
             <div class="task-board" data-quadro hidden>
             <section class="status-column status-todo" aria-labelledby="titulo-a-fazer">
-                <h3 id="titulo-a-fazer">A fazer</h3>
+                <h3 id="titulo-a-fazer">A fazer <span class="column-count" data-contagem="a-fazer"></span></h3>
 
                 <ul class="task-list" data-lista-status="a-fazer"></ul>
             </section>
 
             <section class="status-column status-progress" aria-labelledby="titulo-em-andamento">
-                <h3 id="titulo-em-andamento">Em andamento</h3>
+                <h3 id="titulo-em-andamento">Em andamento <span class="column-count" data-contagem="em-andamento"></span></h3>
 
                 <ul class="task-list" data-lista-status="em-andamento"></ul>
             </section>
 
             <section class="status-column status-review" aria-labelledby="titulo-em-revisao">
-                <h3 id="titulo-em-revisao">Em revisão</h3>
+                <h3 id="titulo-em-revisao">Em revisão <span class="column-count" data-contagem="em-revisao"></span></h3>
 
                 <ul class="task-list" data-lista-status="em-revisao"></ul>
             </section>
 
             <section class="status-column status-done" aria-labelledby="titulo-concluida">
-                <h3 id="titulo-concluida">Concluída</h3>
+                <h3 id="titulo-concluida">Concluída <span class="column-count" data-contagem="concluida"></span></h3>
 
                 <ul class="task-list" data-lista-status="concluida"></ul>
             </section>
@@ -119,6 +127,12 @@
         </section>
     </main>
 
+    <dialog id="detalhes" aria-labelledby="detalhes-titulo">
+        <button type="button" id="fechar-detalhes" class="back-button" autofocus><span aria-hidden="true">←</span> Voltar</button>
+        <p id="detalhes-status" class="detail-status"></p>
+        <h2 id="detalhes-titulo"></h2>
+        <dl id="detalhes-campos"></dl>
+    </dialog>
     <footer>
         <p>Euclides Carlos Pilon Neto — Desenvolvimento Frontend — 2026.2</p>
     </footer>
