@@ -52,9 +52,9 @@ function atualizarColunas(visiveis) {
 function renderizarTema() {
     document.documentElement.dataset.tema = estado.tema;
     botaoTema.hidden = false;
-    botaoTema.textContent = estado.tema === "escuro"
-        ? "Ativar tema claro"
-        : "Ativar tema escuro";
+    document.querySelector("#texto-tema").textContent = estado.tema === "escuro"
+        ? "Modo claro"
+        : "Modo escuro";
 }
 
 function renderizarAplicacao() {
