@@ -10,8 +10,11 @@ const estado = {
     prioridade: "todas",
     ordenacao: "prazo-asc",
     carregamento: "carregando",
-    erro: null
+    erro: null,
+    tema: "claro"
 };
+
+const botaoTema = document.querySelector("#alternar-tema");
 
 const formulario = document.querySelector("#form-filtros");
 const camposFiltros = formulario.querySelector("fieldset");
@@ -46,7 +49,16 @@ function atualizarColunas(visiveis) {
     });
 }
 
+function renderizarTema() {
+    document.documentElement.dataset.tema = estado.tema;
+    botaoTema.hidden = false;
+    botaoTema.textContent = estado.tema === "escuro"
+        ? "Ativar tema claro"
+        : "Ativar tema escuro";
+}
+
 function renderizarAplicacao() {
+    renderizarTema();
     renderizarProgressoGeral();
     camposFiltros.disabled = estado.carregamento !== "sucesso";
     campoBusca.value = estado.busca;
@@ -113,6 +125,12 @@ async function iniciarAplicacao() {
 
     renderizarAplicacao();
 }
+
+// O tema permanece no estado; não há persistência em localStorage.
+botaoTema.addEventListener("click", () => {
+    estado.tema = estado.tema === "claro" ? "escuro" : "claro";
+    renderizarAplicacao();
+});
 
 campoBusca.addEventListener("input", (evento) => {
     estado.busca = evento.currentTarget.value;
