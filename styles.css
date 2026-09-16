@@ -130,8 +130,10 @@ button[type="reset"]:hover:not(:disabled) {
 
 .task-board {
     display: grid;
-    /* auto-fit empilha as colunas quando não há espaço, sem depender de media query. */
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    /* Colunas limitadas em largura e alinhadas à esquerda. */
+    grid-template-columns: minmax(0, 20rem);
+    justify-content: start;
+    align-items: start;
     gap: 1rem;
 }
 
@@ -328,5 +330,105 @@ body > footer {
 @media (min-width: 75rem) {
     .filters-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+/* Destaque dos cartões apenas em dispositivos com mouse. */
+.task-card {
+    position: relative;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .task-card:hover {
+        transform: scale(1.025);
+        z-index: 2;
+        box-shadow: 0 0.5rem 1.5rem rgb(36 40 47 / 0.14);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .task-card { transition: none; }
+    .task-card:hover { transform: none; }
+}
+
+@media (min-width: 40rem) {
+    .task-board { grid-template-columns: repeat(2, minmax(0, 20rem)); }
+}
+
+@media (min-width: 75rem) {
+    .task-board { grid-template-columns: repeat(4, minmax(0, 20rem)); }
+}
+
+.progress-section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.progress-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+}
+
+.progress-header h2 { margin-bottom: 0.5rem; }
+#progresso-percentual { color: var(--color-primary); font-size: 1.2rem; font-weight: 700; }
+
+#progresso-geral {
+    display: block;
+    width: 100%;
+    height: 0.9rem;
+    overflow: hidden;
+    border: none;
+    border-radius: 0.5rem;
+    background: #e4e7ec;
+    accent-color: var(--color-primary);
+}
+
+#progresso-geral::-webkit-progress-bar { background: #e4e7ec; border-radius: 0.5rem; }
+#progresso-geral::-webkit-progress-value { background: var(--color-primary); border-radius: 0.5rem; }
+#progresso-geral::-moz-progress-bar { background: var(--color-primary); border-radius: 0.5rem; }
+
+#progresso-resumo, #progresso-criterio {
+    margin: 0.65rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.875rem;
+}
+
+.task-board {
+    align-items: stretch;
+}
+
+.task-list {
+    display: grid;
+    grid-auto-rows: 1fr;
+}
+
+.task-card {
+    position: relative;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+@media (any-hover: hover) {
+    .task-card:hover {
+        transform: scale(1.04);
+        z-index: 2;
+        box-shadow: 0 8px 24px rgb(36 40 47 / 0.18);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .task-card {
+        transition: none;
+    }
+
+    .task-card:hover {
+        transform: none;
     }
 }

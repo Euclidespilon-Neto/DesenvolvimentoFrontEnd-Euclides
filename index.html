@@ -59,6 +59,17 @@
             </form>
         </section>
 
+        <section class="progress-section" aria-labelledby="titulo-progresso" hidden>
+            <div class="progress-header">
+                <h2 id="titulo-progresso">Andamento geral estimado</h2>
+                <span id="progresso-percentual"></span>
+            </div>
+            <progress id="progresso-geral" max="100" value="0"
+                aria-labelledby="titulo-progresso" aria-describedby="progresso-resumo progresso-criterio"></progress>
+            <p id="progresso-resumo"></p>
+            <p id="progresso-criterio">Estimativa por etapa: a fazer 0%, em andamento 33%, em revisão 66% e concluída 100%. Considera todas as tarefas, independentemente dos filtros.</p>
+        </section>
+
         <section class="board-section" aria-labelledby="titulo-quadro">
             <h2 id="titulo-quadro">Quadro de tarefas</h2>
 

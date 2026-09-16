@@ -9,10 +9,10 @@ Mantém o layout da E2 e as oito tarefas originais (duas por status).
 - dados.json: objeto com o array tarefas.
 - js/api.js: busca, verifica HTTP, interpreta e valida os dados; não manipula DOM.
 - js/estados.js: apresenta carregando, sucesso, vazio e erro; não faz requisições.
-- js/app.js: inicializa dentro de função async e diferencia erros no catch.
+- js/app.js: inicializa dentro de função async, guarda o estado e diferencia os erros na renderização após o catch.
 - js/renderizacao.js: cria cartões a partir dos dados recebidos.
 
-Busca e filtros permanecem visíveis e desabilitados: não são exigidos na E3.
+Na E3, busca e filtros permaneciam visíveis e desabilitados. Na E4, os controles estão ativos.
 Não há bibliotecas ou frameworks.
 
 ## Execução
@@ -46,3 +46,36 @@ Sempre restaure os arquivos após provocar cada falha.
    vazio. Em Elements, após o JavaScript executar, ele já estará preenchido.
 8. Console: verifique que o caminho normal de sucesso não apresenta erros.
 
+
+## E4 — Estado, filtros e publicação
+
+[Acessar o quadro de tarefas](https://euclidespilon-neto.github.io/DesenvolvimentoFrontEnd-Euclides/)
+
+O objeto de estado em `js/app.js` reúne tarefas originais, busca, status,
+prioridade, ordenação, carregamento e erro. `js/selecao.js` combina os
+critérios e ordena uma cópia; cada evento de filtro chama a mesma renderização.
+Os cartões, a contagem e as colunas visíveis usam a mesma lista derivada.
+Colunas sem resultados ficam ocultas e as demais seguem a ordem dos status
+no HTML, alinhadas à esquerda. Limpar filtros restaura os critérios iniciais.
+O botão Ver detalhes registra a tarefa no Console por um evento delegado.
+
+### Personalização e progresso
+
+O visual utiliza fundo creme, Verdana no conteúdo e Trebuchet nos títulos.
+Os cartões aumentam levemente com o mouse; a preferência por movimento
+reduzido desativa o efeito. O módulo `js/progresso.js` calcula uma estimativa
+usando pesos de 0, 33, 66 e 100 para os quatro status. São pesos convencionais,
+não uma medida do esforço ou do tempo restante. A média é arredondada.
+
+Com os dados atuais, a estimativa é 50%, enquanto 2 de 8 tarefas estão
+concluídas (25%). A barra sempre considera todas as tarefas originais,
+independentemente dos filtros. Ela fica oculta durante carregamento e erro.
+
+### Conferência da versão pública
+
+- Combine busca, status e prioridade; confira cartões e contagem.
+- Ordene por prazo e depois limpe os filtros; confira a restauração.
+- Escolha uma combinação sem resultados e confira a mensagem.
+- Altere filtros repetidamente e confira uma saída por clique em Ver detalhes.
+- Confira o teclado e a largura de 320px, sem rolagem horizontal.
+- Em Network, confira JSON, CSS e módulos sem 404; no Console, ausência de erros.

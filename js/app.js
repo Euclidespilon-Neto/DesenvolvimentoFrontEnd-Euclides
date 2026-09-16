@@ -1,6 +1,7 @@
 import { carregarTarefas } from "./api.js";
 import { renderizarEstado } from "./estados.js";
 import { selecionarTarefas } from "./selecao.js";
+import { calcularProgresso } from "./progresso.js";
 
 const estado = {
     tarefas: [],
@@ -19,7 +20,34 @@ const filtroStatus = document.querySelector("#filtro-status");
 const filtroPrioridade = document.querySelector("#filtro-prioridade");
 const campoOrdenacao = document.querySelector("#ordenacao");
 
+const painelProgresso = document.querySelector(".progress-section");
+const barraProgresso = document.querySelector("#progresso-geral");
+const textoProgresso = document.querySelector("#progresso-percentual");
+const resumoProgresso = document.querySelector("#progresso-resumo");
+
+function renderizarProgressoGeral() {
+    painelProgresso.hidden = estado.carregamento !== "sucesso";
+    if (painelProgresso.hidden) return;
+
+    const progresso = calcularProgresso(estado.tarefas);
+    barraProgresso.value = progresso.percentual;
+    barraProgresso.textContent = progresso.percentual + "%";
+    textoProgresso.textContent = progresso.percentual + "%";
+    resumoProgresso.textContent = progresso.total === 0
+        ? "Nenhuma tarefa cadastrada."
+        : progresso.concluidas + " de " + progresso.total + " tarefas concluídas.";
+}
+
+function atualizarColunas(visiveis) {
+    // A visibilidade deriva dos dados, nunca da quantidade de cartões no DOM.
+    const statusVisiveis = new Set(visiveis.map((tarefa) => tarefa.status));
+    quadro.querySelectorAll("[data-lista-status]").forEach((lista) => {
+        lista.closest(".status-column").hidden = !statusVisiveis.has(lista.dataset.listaStatus);
+    });
+}
+
 function renderizarAplicacao() {
+    renderizarProgressoGeral();
     camposFiltros.disabled = estado.carregamento !== "sucesso";
     campoBusca.value = estado.busca;
     filtroStatus.value = estado.status;
@@ -49,6 +77,7 @@ function renderizarAplicacao() {
     }
 
     const visiveis = selecionarTarefas(estado);
+    atualizarColunas(visiveis);
 
     if (estado.tarefas.length === 0) {
         renderizarEstado("vazio");
@@ -57,6 +86,8 @@ function renderizarAplicacao() {
 
     if (visiveis.length === 0) {
         renderizarEstado("sem-resultados");
+        document.querySelector("[data-estado]").textContent =
+            "0 de " + estado.tarefas.length + " tarefas. Altere a busca ou limpe os filtros.";
         return;
     }
 
