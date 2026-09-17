@@ -63,19 +63,19 @@
                     </select>
                 </p>
                     <div class="form-actions">
-                        <button type="submit">Aplicar filtros</button>
                         <button type="reset">Limpar filtros</button>
                     </div>
                 </fieldset>
+                <p class="filter-help">Os resultados são atualizados automaticamente.</p>
             </form>
         </section>
 
         <section class="overview" aria-label="Resumo geral das tarefas" hidden>
-            <div><span>Total</span><strong data-resumo="total">0</strong></div>
-            <div class="status-todo"><span>A fazer</span><strong data-resumo="a-fazer">0</strong></div>
-            <div class="status-progress"><span>Em andamento</span><strong data-resumo="em-andamento">0</strong></div>
-            <div class="status-review"><span>Em revisão</span><strong data-resumo="em-revisao">0</strong></div>
-            <div class="status-done"><span>Concluídas</span><strong data-resumo="concluida">0</strong></div>
+            <button type="button" data-atalho="todos" aria-pressed="true"><span>Total</span><strong data-resumo="total">0</strong></button>
+            <button type="button" class="status-todo" data-atalho="a-fazer" aria-pressed="false"><span>A fazer</span><strong data-resumo="a-fazer">0</strong></button>
+            <button type="button" class="status-progress" data-atalho="em-andamento" aria-pressed="false"><span>Em andamento</span><strong data-resumo="em-andamento">0</strong></button>
+            <button type="button" class="status-review" data-atalho="em-revisao" aria-pressed="false"><span>Em revisão</span><strong data-resumo="em-revisao">0</strong></button>
+            <button type="button" class="status-done" data-atalho="concluida" aria-pressed="false"><span>Concluídas</span><strong data-resumo="concluida">0</strong></button>
         </section>
         <section class="progress-section" aria-labelledby="titulo-progresso" hidden>
             <div class="progress-header">
@@ -90,6 +90,15 @@
                     <summary>Como é calculado?</summary>
                     <p id="progresso-criterio">Cada tarefa recebe um peso pela etapa: a fazer 0%, em andamento 33%, em revisão 66% e concluída 100%. A barra mostra a média arredondada de todas as tarefas, independentemente dos filtros. É uma estimativa de andamento, não o percentual de tarefas concluídas.</p>
                 </details>
+            </div>
+            <div class="completion-goal" aria-labelledby="meta-titulo">
+                <div class="goal-heading"><strong id="meta-titulo">Rumo ao quadro concluído</strong><span id="meta-percentual"></span></div>
+                <p id="meta-mensagem"></p>
+                <ul class="milestones" aria-label="Conquistas por tarefas concluídas">
+                    <li data-marco="primeira"><span aria-hidden="true">○</span> Primeira entrega</li>
+                    <li data-marco="metade"><span aria-hidden="true">○</span> Metade concluída</li>
+                    <li data-marco="todas"><span aria-hidden="true">○</span> Quadro concluído</li>
+                </ul>
             </div>
         </section>
 
@@ -131,7 +140,13 @@
         <button type="button" id="fechar-detalhes" class="back-button" autofocus><span aria-hidden="true">←</span> Voltar</button>
         <p id="detalhes-status" class="detail-status"></p>
         <h2 id="detalhes-titulo"></h2>
+        <div class="detail-highlights"><span id="detalhes-prioridade" class="priority"></span><p>Prazo: <time id="detalhes-prazo"></time></p></div>
         <dl id="detalhes-campos"></dl>
+        <div class="copy-area">
+            <button type="button" id="copiar-resumo">Copiar resumo</button>
+            <p id="copia-status" role="status" aria-live="polite"></p>
+            <div id="copia-manual" hidden><label for="resumo-copiavel">Selecione o texto e copie manualmente:</label><textarea id="resumo-copiavel" readonly rows="6"></textarea></div>
+        </div>
     </dialog>
     <footer>
         <p>Euclides Carlos Pilon Neto — Desenvolvimento Frontend — 2026.2</p>

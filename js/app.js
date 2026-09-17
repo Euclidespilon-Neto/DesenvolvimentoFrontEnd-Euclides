@@ -2,6 +2,7 @@ import { carregarTarefas } from "./api.js";
 import { renderizarEstado } from "./estados.js";
 import { selecionarTarefas } from "./selecao.js";
 import { calcularProgresso } from "./progresso.js";
+import { calcularMetas } from "./metas.js";
 
 const estado = {
     tarefas: [],
@@ -40,6 +41,16 @@ function renderizarProgressoGeral() {
     resumoProgresso.textContent = progresso.total === 0
         ? "Nenhuma tarefa cadastrada."
         : progresso.concluidas + " de " + progresso.total + " tarefas concluídas.";
+    const metas = calcularMetas(estado.tarefas);
+    document.querySelector("#meta-percentual").textContent = metas.total ? `${metas.percentual}% concluído` : "Sem tarefas";
+    document.querySelector("#meta-mensagem").textContent = metas.mensagem;
+    document.querySelector(".completion-goal").classList.toggle("goal-complete", metas.conquistas.todas);
+    document.querySelectorAll("[data-marco]").forEach(item => {
+        const conquistado = metas.conquistas[item.dataset.marco];
+        item.classList.toggle("achieved", conquistado);
+        item.querySelector("span").textContent = conquistado ? "✓" : "○";
+        item.setAttribute("aria-label", item.textContent.slice(1).trim() + (conquistado ? ": conquistado" : ": ainda não conquistado"));
+    });
 }
 
 function atualizarColunas(visiveis) {
@@ -72,6 +83,11 @@ function renderizarPainel() {
     document.querySelector(".overview").hidden = estado.carregamento !== "sucesso";
     document.querySelectorAll("[data-resumo]").forEach((item) => {
         item.textContent = item.dataset.resumo === "total" ? estado.tarefas.length : estado.tarefas.filter(t => t.status === item.dataset.resumo).length;
+    });
+    document.querySelectorAll("[data-atalho]").forEach(botao => {
+        const selecionado = botao.dataset.atalho === estado.status && (estado.status !== "todos" || (!estado.busca && estado.prioridade === "todas" && estado.ordenacao === "prazo-asc"));
+        botao.setAttribute("aria-pressed", String(selecionado));
+        botao.disabled = estado.carregamento !== "sucesso";
     });
 }
 
@@ -210,15 +226,30 @@ quadro.addEventListener("click", (evento) => {
 
 const dialogo = document.querySelector("#detalhes");
 let origemDetalhes = null;
+let resumoParaCopiar = "";
+let versaoDetalhes = 0;
 const nomesStatus = {"a-fazer": "A fazer", "em-andamento": "Em andamento", "em-revisao": "Em revisão", "concluida": "Concluída"};
 function abrirDetalhes(tarefa, origem) {
+    versaoDetalhes++;
+    document.querySelector("#copiar-resumo").disabled = false;
+    document.querySelector("#copia-status").textContent = "";
+    document.querySelector("#copia-manual").hidden = true;
     origemDetalhes = origem;
+    dialogo.dataset.status = tarefa.status;
     document.querySelector("#detalhes-titulo").textContent = tarefa.titulo;
     document.querySelector("#detalhes-status").textContent = nomesStatus[tarefa.status] || tarefa.status;
     const lista = document.querySelector("#detalhes-campos");
     lista.replaceChildren();
     const prioridade = {alta: "Alta", media: "Média", baixa: "Baixa"}[tarefa.prioridade] || tarefa.prioridade;
-    for (const [nome, valor] of [["Projeto", tarefa.projeto], ["Responsável", tarefa.responsavel], ["Prioridade", prioridade], ["Prazo", tarefa.prazo?.split("-").reverse().join("/")]]) {
+    const prioridadeVisual = document.querySelector("#detalhes-prioridade");
+    prioridadeVisual.textContent = "Prioridade " + prioridade;
+    prioridadeVisual.className = "priority " + ({alta: "priority-high", media: "priority-medium", baixa: "priority-low"}[tarefa.prioridade] || "");
+    const prazo = document.querySelector("#detalhes-prazo");
+    prazo.dateTime = tarefa.prazo || "";
+    prazo.textContent = tarefa.prazo?.split("-").reverse().join("/") || "Não informado";
+    resumoParaCopiar = [tarefa.titulo, "Status: " + (nomesStatus[tarefa.status] || tarefa.status), tarefa.projeto && "Projeto: " + tarefa.projeto, tarefa.responsavel && "Responsável: " + tarefa.responsavel, "Prioridade: " + prioridade, "Prazo: " + prazo.textContent].filter(Boolean).join("\n");
+    document.querySelector("#resumo-copiavel").value = resumoParaCopiar;
+    for (const [nome, valor] of [["Projeto", tarefa.projeto], ["Responsável", tarefa.responsavel]]) {
         if (!valor) continue;
         const termo = document.createElement("dt"); termo.textContent = nome;
         const descricao = document.createElement("dd"); descricao.textContent = valor;
@@ -229,8 +260,35 @@ function abrirDetalhes(tarefa, origem) {
 }
 document.querySelector("#fechar-detalhes").addEventListener("click", () => dialogo.close());
 dialogo.addEventListener("close", () => {
+    versaoDetalhes++;
     document.body.classList.remove("details-open");
     if (origemDetalhes?.isConnected) origemDetalhes.focus();
+});
+document.querySelector("#copiar-resumo").addEventListener("click", async (evento) => {
+    const botao = evento.currentTarget;
+    const versao = versaoDetalhes;
+    botao.disabled = true;
+    try {
+        if (!navigator.clipboard?.writeText) throw new Error("Cópia indisponível");
+        await navigator.clipboard.writeText(resumoParaCopiar);
+        if (versao === versaoDetalhes) document.querySelector("#copia-status").textContent = "Copiado!";
+    } catch {
+        if (versao === versaoDetalhes) {
+            document.querySelector("#copia-status").textContent = "Não foi possível copiar automaticamente. Use o texto abaixo.";
+            document.querySelector("#copia-manual").hidden = false;
+        }
+    } finally {
+        if (versao === versaoDetalhes) botao.disabled = false;
+    }
+});
+document.querySelector(".overview").addEventListener("click", evento => {
+    const botao = evento.target.closest("[data-atalho]");
+    if (!botao || estado.carregamento !== "sucesso") return;
+    if (botao.dataset.atalho === "todos") formulario.reset();
+    else {
+        estado.status = botao.dataset.atalho;
+        renderizarAplicacao();
+    }
 });
 document.querySelector("#abrir-filtros").addEventListener("click", () => {
     estado.filtrosAbertos = !estado.filtrosAbertos;
@@ -245,6 +303,6 @@ const foto = document.querySelector("#foto-perfil");
 foto.addEventListener("load", () => { foto.hidden = false; });
 foto.addEventListener("error", () => { foto.hidden = true; });
 // Para usar sua foto, descomente a linha abaixo após copiar o arquivo.
-// foto.src = "./assets/foto-perfil.jpg";
+foto.src = "./assets/foto-perfil.jpg";
 
 iniciarAplicacao();

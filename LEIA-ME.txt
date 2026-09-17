@@ -1,0 +1,24 @@
+ATUALIZAÇÃO DO PAINEL
+
+Substitua index.html, styles.css e js/app.js. Adicione js/metas.js.
+Preserve todos os demais módulos, dados.json e sua pasta assets.
+
+FOTO: o app.js deste pacote usa ./assets/foto-perfil.jpg.
+Se a sua foto tiver outro nome ou extensão, mantenha o caminho que você já usava
+na linha foto.src, no final do app.js.
+
+Os botões do resumo filtram pelo status e preservam a busca e a prioridade.
+Total restaura todos os critérios e a ordenação inicial.
+O painel de filtros mostra quantos critérios estão ativos.
+
+As conquistas usam somente tarefas concluídas do conjunto original, sem filtros.
+Primeira entrega: pelo menos uma. Metade: pelo menos 50%. Quadro concluído: todas.
+O percentual de conclusão é separado do andamento estimado (pesos por status).
+Não há edição de tarefas, pontos persistidos, armazenamento nem banco de dados.
+Para as conquistas mudarem, os status precisam mudar no dados.json e ser recarregados.
+
+Copiar resumo solicita a cópia apenas após clicar no botão. Se o navegador bloquear,
+o texto aparece em um campo para você selecionar e copiar manualmente.
+
+Commit sugerido:
+feat: adiciona atalhos, cópia de detalhes e conquistas de conclusão
