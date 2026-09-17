@@ -620,10 +620,9 @@ body > footer { color: var(--color-muted); background: var(--color-background); 
 .filter-heading button { width:auto; font-size:0.875rem; color:var(--color-primary); background:var(--color-surface); }
 .filter-heading button:hover { color:var(--color-button-text); }
 #filtros-ativos { color:var(--color-muted); font-size:0.875rem; }
-.overview { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0.75rem; margin-bottom:0.8rem; }
-.overview > div { border-left:3px solid var(--status-accent,var(--color-primary)); background:var(--color-surface); padding:0.6rem 0.8rem; border-radius:0.3rem; }
-.overview span { display:block; color:var(--color-muted); font-size:0.8rem; }
-.overview strong { font-size:1.4rem; }
+.overview { display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:0.8rem; }
+.overview span { color:var(--color-text); font-size:0.875rem; }
+.overview strong { display:grid; place-items:center; min-width:1.6rem; padding:0.1rem 0.4rem; border-radius:1rem; background:var(--color-column); font-size:0.875rem; }
 .progress-section { padding:0.75rem 1rem; box-shadow:none; }
 #progresso-geral { height:0.45rem; }
 .progress-header h2 { font-size:0.9rem; }
@@ -641,24 +640,16 @@ body > footer { color: var(--color-muted); background: var(--color-background); 
 #detalhes-campos dt { color:var(--color-muted); font-size:0.875rem; margin-top:1rem; }
 #detalhes-campos dd { margin:0.2rem 0 0; overflow-wrap:anywhere; }
 .filter-help { margin:0.4rem 0 0; color:var(--color-muted); font-size:0.8rem; }
-.overview > button {
+.overview > .summary-item {
+    display:inline-flex; align-items:center; justify-content:space-between; gap:0.75rem;
+    width:auto; max-width:100%; min-height:2.75rem;
     text-align:left; font-weight:400; color:var(--color-text);
     background:var(--color-surface); border:1px solid var(--color-border);
     border-left:3px solid var(--status-accent,var(--color-primary));
     padding:0.6rem 0.8rem; border-radius:0.3rem;
+    cursor:default;
 }
-.overview > button:hover:not(:disabled) { background:var(--color-secondary-hover); border-color:var(--status-accent,var(--color-primary)); }
-.overview > button[aria-pressed="true"] { outline:2px solid var(--status-accent,var(--color-primary)); outline-offset:-2px; background:var(--color-secondary-hover); }
-.overview > button:focus-visible { outline:3px solid #ffbf47; outline-offset:3px; }
 .status-column > h3 { border-bottom:none; padding-bottom:0; }
-.completion-goal { margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid var(--color-border); }
-.goal-heading { display:flex; flex-wrap:wrap; justify-content:space-between; gap:0.5rem; font-size:0.875rem; }
-#meta-percentual { color:var(--color-primary); font-weight:700; }
-#meta-mensagem { margin:0.4rem 0 0.6rem; font-size:0.85rem; color:var(--color-muted); }
-.milestones { display:flex; flex-wrap:wrap; gap:0.5rem; padding:0; margin:0; list-style:none; font-size:0.8rem; }
-.milestones li { border:1px solid var(--color-border); padding:0.25rem 0.6rem; border-radius:1rem; color:var(--color-muted); }
-.milestones li.achieved { background:var(--color-low-bg); color:var(--color-low-text); border-color:var(--color-done); }
-.goal-complete .goal-heading strong { color:var(--color-low-text); background:var(--color-low-bg); padding:0.2rem 0.5rem; border-radius:0.3rem; }
 #detalhes[data-status="a-fazer"] { --detail-accent:var(--color-todo); }
 #detalhes[data-status="em-andamento"] { --detail-accent:var(--color-progress); }
 #detalhes[data-status="em-revisao"] { --detail-accent:var(--color-review); }
@@ -675,9 +666,52 @@ body > footer { color: var(--color-muted); background: var(--color-background); 
 #copia-manual label { display:block; font-size:0.85rem; margin-top:0.75rem; }
 #resumo-copiavel { width:100%; max-width:100%; resize:vertical; padding:0.75rem; font:inherit; color:var(--color-text); background:var(--color-background); border:1px solid var(--color-input-border); border-radius:0.4rem; }
 #resumo-copiavel:focus-visible { outline:3px solid #ffbf47; outline-offset:2px; }
-@media(min-width:48rem) { .overview { grid-template-columns:repeat(5,minmax(0,1fr)); } }
 @media(prefers-reduced-motion:no-preference) {
     #detalhes[open] { animation:abrir-detalhes 160ms ease-out; }
     #form-filtros:not([hidden]) { animation:abrir-detalhes 160ms ease-out; }
     @keyframes abrir-detalhes { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
 }
+
+/* Realce de sintaxe feito com CSS local, sem extensão ou fonte externa. */
+:root {
+    --syntax-base:#374151;
+    --syntax-keyword:#8c3eb0;
+    --syntax-function:#996015;
+    --syntax-variable:#146e9c;
+    --syntax-string:#36743b;
+    --syntax-number:#b74c33;
+    --syntax-tag:#b3426e;
+    --syntax-comment:#637563;
+    --syntax-opacity:0.28;
+}
+:root[data-tema="escuro"] {
+    --syntax-base:#d4d4d4;
+    --syntax-keyword:#c792ea;
+    --syntax-function:#e5c07b;
+    --syntax-variable:#82cfff;
+    --syntax-string:#98c379;
+    --syntax-number:#f4a579;
+    --syntax-tag:#f08aa5;
+    --syntax-comment:#9ca99c;
+    --syntax-opacity:0.25;
+}
+body { position:relative; isolation:isolate; }
+.code-wallpaper {
+    position:fixed; inset:-2rem; z-index:-1; overflow:hidden;
+    display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-auto-rows:5.5rem; gap:1.5rem 1rem; padding:2.5rem;
+    pointer-events:none; user-select:none;
+    color:var(--syntax-base); opacity:var(--syntax-opacity);
+}
+.code-wallpaper code { align-self:center; white-space:nowrap; font:0.85rem/1.6 Consolas,"Courier New",monospace; transform:rotate(-7deg); }
+.code-wallpaper code:nth-child(3n) { transform:rotate(5deg); }
+.code-wallpaper code:nth-child(4n) { margin-left:1.5rem; }
+.syntax-keyword { color:var(--syntax-keyword); }
+.syntax-fn { color:var(--syntax-function); }
+.syntax-variable { color:var(--syntax-variable); }
+.syntax-string { color:var(--syntax-string); }
+.syntax-number { color:var(--syntax-number); }
+.syntax-tag { color:var(--syntax-tag); }
+.syntax-comment { color:var(--syntax-comment); font-style:italic; }
+@media(min-width:48rem) { .code-wallpaper { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(min-width:90rem) { .code-wallpaper { grid-template-columns:repeat(4,minmax(0,1fr)); } }

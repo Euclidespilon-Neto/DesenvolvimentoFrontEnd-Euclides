@@ -2,7 +2,6 @@ import { carregarTarefas } from "./api.js";
 import { renderizarEstado } from "./estados.js";
 import { selecionarTarefas } from "./selecao.js";
 import { calcularProgresso } from "./progresso.js";
-import { calcularMetas } from "./metas.js";
 
 const estado = {
     tarefas: [],
@@ -41,16 +40,6 @@ function renderizarProgressoGeral() {
     resumoProgresso.textContent = progresso.total === 0
         ? "Nenhuma tarefa cadastrada."
         : progresso.concluidas + " de " + progresso.total + " tarefas concluídas.";
-    const metas = calcularMetas(estado.tarefas);
-    document.querySelector("#meta-percentual").textContent = metas.total ? `${metas.percentual}% concluído` : "Sem tarefas";
-    document.querySelector("#meta-mensagem").textContent = metas.mensagem;
-    document.querySelector(".completion-goal").classList.toggle("goal-complete", metas.conquistas.todas);
-    document.querySelectorAll("[data-marco]").forEach(item => {
-        const conquistado = metas.conquistas[item.dataset.marco];
-        item.classList.toggle("achieved", conquistado);
-        item.querySelector("span").textContent = conquistado ? "✓" : "○";
-        item.setAttribute("aria-label", item.textContent.slice(1).trim() + (conquistado ? ": conquistado" : ": ainda não conquistado"));
-    });
 }
 
 function atualizarColunas(visiveis) {
@@ -83,11 +72,6 @@ function renderizarPainel() {
     document.querySelector(".overview").hidden = estado.carregamento !== "sucesso";
     document.querySelectorAll("[data-resumo]").forEach((item) => {
         item.textContent = item.dataset.resumo === "total" ? estado.tarefas.length : estado.tarefas.filter(t => t.status === item.dataset.resumo).length;
-    });
-    document.querySelectorAll("[data-atalho]").forEach(botao => {
-        const selecionado = botao.dataset.atalho === estado.status && (estado.status !== "todos" || (!estado.busca && estado.prioridade === "todas" && estado.ordenacao === "prazo-asc"));
-        botao.setAttribute("aria-pressed", String(selecionado));
-        botao.disabled = estado.carregamento !== "sucesso";
     });
 }
 
@@ -279,15 +263,6 @@ document.querySelector("#copiar-resumo").addEventListener("click", async (evento
         }
     } finally {
         if (versao === versaoDetalhes) botao.disabled = false;
-    }
-});
-document.querySelector(".overview").addEventListener("click", evento => {
-    const botao = evento.target.closest("[data-atalho]");
-    if (!botao || estado.carregamento !== "sucesso") return;
-    if (botao.dataset.atalho === "todos") formulario.reset();
-    else {
-        estado.status = botao.dataset.atalho;
-        renderizarAplicacao();
     }
 });
 document.querySelector("#abrir-filtros").addEventListener("click", () => {

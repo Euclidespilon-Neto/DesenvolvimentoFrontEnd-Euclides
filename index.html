@@ -7,6 +7,38 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="code-wallpaper" aria-hidden="true">
+        <code><span class="syntax-fn">print</span>(<span class="syntax-string">"hello world"</span>)</code>
+        <code><span class="syntax-keyword">const</span> <span class="syntax-variable">foco</span> = <span class="syntax-number">true</span>;</code>
+        <code><span class="syntax-keyword">return</span> <span class="syntax-variable">progresso</span>;</code>
+        <code><span class="syntax-variable">console</span>.<span class="syntax-fn">log</span>(<span class="syntax-string">"feito!"</span>);</code>
+        <code><span class="syntax-tag">&lt;main&gt;</span> ideias <span class="syntax-tag">&lt;/main&gt;</span></code>
+        <code><span class="syntax-keyword">git</span> commit -m <span class="syntax-string">"aprendendo"</span></code>
+        <code><span class="syntax-keyword">let</span> <span class="syntax-variable">tentativas</span> = <span class="syntax-number">0</span>;</code>
+        <code><span class="syntax-fn">aprender</span>(); <span class="syntax-fn">praticar</span>();</code>
+        <code><span class="syntax-variable">display</span>: <span class="syntax-string">grid</span>;</code>
+        <code><span class="syntax-keyword">async function</span> <span class="syntax-fn">iniciar</span>() { }</code>
+        <code><span class="syntax-comment">// uma tarefa de cada vez</span></code>
+        <code><span class="syntax-variable">tarefas</span>.<span class="syntax-fn">filter</span>(<span class="syntax-variable">concluida</span>);</code>
+        <code><span class="syntax-keyword">if</span> (<span class="syntax-variable">pronto</span>) <span class="syntax-fn">entregar</span>();</code>
+        <code><span class="syntax-tag">&lt;button&gt;</span> começar <span class="syntax-tag">&lt;/button&gt;</span></code>
+        <code><span class="syntax-variable">gap</span>: <span class="syntax-number">1rem</span>;</code>
+        <code><span class="syntax-keyword">await</span> <span class="syntax-fn">carregarTarefas</span>();</code>
+        <code><span class="syntax-keyword">for</span> (<span class="syntax-keyword">const</span> <span class="syntax-variable">ideia</span> <span class="syntax-keyword">of</span> <span class="syntax-variable">ideias</span>)</code>
+        <code><span class="syntax-fn">len</span>(<span class="syntax-variable">tarefas</span>)</code>
+        <code><span class="syntax-comment">/* feito é melhor que parado */</span></code>
+        <code><span class="syntax-variable">align-items</span>: <span class="syntax-string">center</span>;</code>
+        <code><span class="syntax-keyword">export</span> { <span class="syntax-fn">renderizar</span> };</code>
+        <code><span class="syntax-variable">total</span> += <span class="syntax-number">1</span>;</code>
+        <code><span class="syntax-keyword">git</span> status</code>
+        <code><span class="syntax-fn">JSON.parse</span>(<span class="syntax-variable">dados</span>);</code>
+        <code><span class="syntax-keyword">while</span> (<span class="syntax-variable">aprendendo</span>) { <span class="syntax-fn">tentar</span>(); }</code>
+        <code><span class="syntax-tag">&lt;section</span> <span class="syntax-variable">class</span>=<span class="syntax-string">"projetos"</span><span class="syntax-tag">&gt;</span></code>
+        <code><span class="syntax-variable">border-radius</span>: <span class="syntax-number">8px</span>;</code>
+        <code><span class="syntax-keyword">def</span> <span class="syntax-fn">aprender</span>():</code>
+        <code><span class="syntax-variable">ideias</span>.<span class="syntax-fn">map</span>(<span class="syntax-fn">criar</span>);</code>
+        <code><span class="syntax-keyword">return</span> <span class="syntax-number">200</span>;</code>
+    </div>
     <header class="site-header">
         <div class="header-content">
             <div class="profile"><div class="avatar" aria-label="Foto de Euclides Carlos Pilon Neto"><span aria-hidden="true">EP</span><img id="foto-perfil" alt="" hidden></div><div class="site-identity">
@@ -71,11 +103,11 @@
         </section>
 
         <section class="overview" aria-label="Resumo geral das tarefas" hidden>
-            <button type="button" data-atalho="todos" aria-pressed="true"><span>Total</span><strong data-resumo="total">0</strong></button>
-            <button type="button" class="status-todo" data-atalho="a-fazer" aria-pressed="false"><span>A fazer</span><strong data-resumo="a-fazer">0</strong></button>
-            <button type="button" class="status-progress" data-atalho="em-andamento" aria-pressed="false"><span>Em andamento</span><strong data-resumo="em-andamento">0</strong></button>
-            <button type="button" class="status-review" data-atalho="em-revisao" aria-pressed="false"><span>Em revisão</span><strong data-resumo="em-revisao">0</strong></button>
-            <button type="button" class="status-done" data-atalho="concluida" aria-pressed="false"><span>Concluídas</span><strong data-resumo="concluida">0</strong></button>
+            <div class="summary-item"><span>Total</span><strong data-resumo="total">0</strong></div>
+            <div class="summary-item status-todo"><span>A fazer</span><strong data-resumo="a-fazer">0</strong></div>
+            <div class="summary-item status-progress"><span>Em andamento</span><strong data-resumo="em-andamento">0</strong></div>
+            <div class="summary-item status-review"><span>Em revisão</span><strong data-resumo="em-revisao">0</strong></div>
+            <div class="summary-item status-done"><span>Concluídas</span><strong data-resumo="concluida">0</strong></div>
         </section>
         <section class="progress-section" aria-labelledby="titulo-progresso" hidden>
             <div class="progress-header">
@@ -90,15 +122,6 @@
                     <summary>Como é calculado?</summary>
                     <p id="progresso-criterio">Cada tarefa recebe um peso pela etapa: a fazer 0%, em andamento 33%, em revisão 66% e concluída 100%. A barra mostra a média arredondada de todas as tarefas, independentemente dos filtros. É uma estimativa de andamento, não o percentual de tarefas concluídas.</p>
                 </details>
-            </div>
-            <div class="completion-goal" aria-labelledby="meta-titulo">
-                <div class="goal-heading"><strong id="meta-titulo">Rumo ao quadro concluído</strong><span id="meta-percentual"></span></div>
-                <p id="meta-mensagem"></p>
-                <ul class="milestones" aria-label="Conquistas por tarefas concluídas">
-                    <li data-marco="primeira"><span aria-hidden="true">○</span> Primeira entrega</li>
-                    <li data-marco="metade"><span aria-hidden="true">○</span> Metade concluída</li>
-                    <li data-marco="todas"><span aria-hidden="true">○</span> Quadro concluído</li>
-                </ul>
             </div>
         </section>
 

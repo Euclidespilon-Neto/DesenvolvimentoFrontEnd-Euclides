@@ -1,24 +1,19 @@
-ATUALIZAÇÃO DO PAINEL
+Substitua index.html, styles.css e js/app.js.
+Preserve dados.json, os outros módulos e sua pasta assets.
+Confira o caminho da sua foto em foto.src no final de js/app.js.
 
-Substitua index.html, styles.css e js/app.js. Adicione js/metas.js.
-Preserve todos os demais módulos, dados.json e sua pasta assets.
+Esta versão volta ao painel anterior, sem personagem, edição de status ou linha do tempo.
+Os contadores são somente indicadores: não recebem foco nem filtram as tarefas.
+A busca e os filtros normais permanecem funcionando.
+O progresso volta ao andamento estimado, com a explicação anterior dos pesos por status.
 
-FOTO: o app.js deste pacote usa ./assets/foto-perfil.jpg.
-Se a sua foto tiver outro nome ou extensão, mantenha o caminho que você já usava
-na linha foto.src, no final do app.js.
+O fundo contém 30 trechos com realce de sintaxe em CSS local.
+As cores acompanham o tema claro/escuro. O fundo aparece nos espaços livres,
+atrás do conteúdo; não recebe cliques nem é anunciado por leitores de tela.
+Para ajustar a intensidade, altere --syntax-opacity em styles.css.
 
-Os botões do resumo filtram pelo status e preservam a busca e a prioridade.
-Total restaura todos os critérios e a ordenação inicial.
-O painel de filtros mostra quantos critérios estão ativos.
+Se você instalou a versão descartada, js/jornada.js e js/visual-jornada.js
+não serão mais utilizados. Pode removê-los. js/metas.js também não é usado.
+Mantenha js/progresso.js: esta versão volta a utilizá-lo.
 
-As conquistas usam somente tarefas concluídas do conjunto original, sem filtros.
-Primeira entrega: pelo menos uma. Metade: pelo menos 50%. Quadro concluído: todas.
-O percentual de conclusão é separado do andamento estimado (pesos por status).
-Não há edição de tarefas, pontos persistidos, armazenamento nem banco de dados.
-Para as conquistas mudarem, os status precisam mudar no dados.json e ser recarregados.
-
-Copiar resumo solicita a cópia apenas após clicar no botão. Se o navegador bloquear,
-o texto aparece em um campo para você selecionar e copiar manualmente.
-
-Commit sugerido:
-feat: adiciona atalhos, cópia de detalhes e conquistas de conclusão
+Commit: style: remove atalhos dos contadores e adiciona fundo com códigos coloridos
