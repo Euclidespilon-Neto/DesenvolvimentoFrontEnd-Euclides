@@ -2,6 +2,7 @@ import { carregarTarefas } from "./api.js";
 import { renderizarEstado } from "./estados.js";
 import { selecionarTarefas } from "./selecao.js";
 import { calcularProgresso } from "./progresso.js";
+import { renderizarRadar, contarAtrasadas } from "./radar.js";
 
 const estado = {
     tarefas: [],
@@ -12,7 +13,8 @@ const estado = {
     carregamento: "carregando",
     erro: null,
     tema: "escuro",
-    filtrosAbertos: false
+    filtrosAbertos: false,
+    radarAberto: true
 };
 
 const botaoTema = document.querySelector("#alternar-tema");
@@ -76,6 +78,12 @@ function renderizarPainel() {
 }
 
 function renderizarAplicacao() {
+    const radar = document.querySelector("#painel-radar");
+    radar.hidden = estado.carregamento !== "sucesso";
+    document.querySelector("#radar-conteudo").hidden = !estado.radarAberto;
+    const toggleRadar = document.querySelector("#alternar-radar");
+    toggleRadar.setAttribute("aria-expanded", String(estado.radarAberto));
+    toggleRadar.textContent = estado.radarAberto ? "Recolher radar" : "Mostrar radar";
     renderizarPainel();
     renderizarTema();
     renderizarProgressoGeral();
@@ -108,6 +116,8 @@ function renderizarAplicacao() {
     }
 
     const visiveis = selecionarTarefas(estado);
+    document.querySelector("#total-atrasadas").textContent = contarAtrasadas(estado.tarefas);
+    renderizarRadar(visiveis, estado.tarefas.length);
     atualizarColunas(visiveis);
 
     if (estado.tarefas.length === 0) {
@@ -280,4 +290,18 @@ foto.addEventListener("error", () => { foto.hidden = true; });
 // Para usar sua foto, descomente a linha abaixo após copiar o arquivo.
 foto.src = "./assets/foto-perfil.jpg";
 
+document.querySelector("#alternar-radar").addEventListener("click", () => {
+    estado.radarAberto = !estado.radarAberto;
+    renderizarAplicacao();
+});
+document.querySelector("#radar-linha").addEventListener("click", (evento) => {
+    const botao = evento.target.closest("button[data-radar-id]");
+    if (!botao) return;
+    const tarefa = estado.tarefas.find(t => String(t.id) === botao.dataset.radarId);
+    if (tarefa) abrirDetalhes(tarefa, botao);
+});
+// Atualiza a referência de hoje ao voltar à aba, sem retirar o foco.
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && !dialogo.open) renderizarAplicacao();
+});
 iniciarAplicacao();

@@ -1,4 +1,49 @@
 /* TASK PROTOCOL — HTML, CSS e JavaScript nativos. Fontes do sistema. */
+/* Radar e terminal: usam as mesmas variáveis dos temas existentes. */
+.terminal-search { display:flex; align-items:center; gap:0.65rem; padding-left:0.8rem; border:1px solid var(--border); border-radius:3px; background:var(--bg); }
+.terminal-search > span { color:var(--accent); font:700 1rem var(--mono); user-select:none; }
+.terminal-search:focus-within { border-color:var(--cyan); box-shadow:0 0 0 2px var(--accent-soft); }
+.terminal-search #busca-titulo { border:0; background:transparent; font-family:var(--mono); }
+.summary-item.summary-overdue { --status-accent:var(--high); }
+.radar-panel { position:relative; min-width:0; margin:0 0 1.5rem; padding:1rem; border:1px solid var(--border); border-radius:4px; background:var(--surface); }
+.radar-panel::before,.radar-panel::after { content:""; position:absolute; width:22px; height:22px; pointer-events:none; border-color:var(--cyan); border-style:solid; opacity:0.65; }
+.radar-panel::before { top:-1px; left:-1px; border-width:2px 0 0 2px; }
+.radar-panel::after { bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+.radar-heading { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; }
+.radar-heading h2 { margin:0; font-size:1rem; }
+.radar-heading h2 span { color:var(--cyan); margin-right:0.4rem; }
+.radar-heading button { font:0.8rem var(--mono); }
+.radar-help,#radar-mensagem { color:var(--muted); font-size:0.78rem; line-height:1.6; }
+.radar-scroll { overflow-x:auto; max-width:100%; padding:0.65rem 0.3rem 1rem; scrollbar-color:var(--border) var(--bg); background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px); background-size:24px 24px; }
+.radar-track { display:flex; width:max-content; min-width:100%; list-style:none; margin:0; padding:0; }
+.radar-day { position:relative; flex:1 0 184px; width:184px; padding:0 0.5rem; border-top:1px solid var(--border); margin-top:1.75rem; }
+.radar-date { display:block; width:max-content; margin-top:-1rem; padding:0.3rem; background:var(--surface); color:var(--muted); font:0.78rem var(--mono); }
+.radar-today { border-top:2px solid var(--accent); background:var(--accent-soft); }
+.radar-today .radar-date { color:var(--accent); }
+.radar-now { display:block; margin:0.3rem; color:var(--accent); font:700 0.7rem var(--mono); letter-spacing:0.12em; }
+.radar-tasks { padding:0; margin:0.65rem 0; list-style:none; display:grid; gap:0.5rem; }
+.radar-marker { display:block; width:100%; text-align:left; padding:0.6rem; border-left:3px solid var(--marker,var(--cyan)); background:var(--surface); color:var(--text); }
+.radar-marker[data-status="a-fazer"] { --marker:var(--todo); }
+.radar-marker[data-status="em-andamento"] { --marker:var(--progress); }
+.radar-marker[data-status="em-revisao"] { --marker:var(--review); }
+.radar-marker[data-status="concluida"] { --marker:var(--done); }
+.radar-task-title { display:block; font-size:0.78rem; line-height:1.5; overflow-wrap:anywhere; }
+.radar-task-status { display:block; color:var(--marker); font:0.67rem/1.6 var(--mono); margin-top:0.4rem; }
+.radar-marker:hover,.radar-marker:focus-visible { background:var(--surface-raised); border-color:var(--marker); box-shadow:0 0 0 1px var(--marker); }
+.radar-no-deadline { display:block; margin:0.75rem 0.3rem; color:var(--muted); font-size:0.73rem; }
+.radar-legend { display:flex; gap:0.6rem 1rem; flex-wrap:wrap; margin-bottom:0; font:0.7rem var(--mono); color:var(--muted); }
+.radar-legend span::before { content:""; display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:0.4rem; background:var(--todo); }
+.radar-legend span:nth-child(2)::before { background:var(--progress); }
+.radar-legend span:nth-child(3)::before { background:var(--review); }
+.radar-legend span:nth-child(4)::before { background:var(--done); }
+/* Trilhas estáticas e discretas: não interferem com cliques ou leitura. */
+.site-header { position:relative; }
+.site-header::after { content:""; position:absolute; right:1rem; bottom:7px; width:clamp(60px,14vw,190px); height:10px; pointer-events:none; opacity:0.28; background:radial-gradient(circle at 4px 5px,var(--cyan) 3px,transparent 3.5px),linear-gradient(var(--cyan),var(--cyan)) 8px 4px / calc(100% - 8px) 1px no-repeat; }
+.workspace-intro { position:relative; }
+.workspace-intro::after { content:"{ }"; color:var(--cyan); font:1rem var(--mono); opacity:0.3; margin-left:auto; padding-left:0.75rem; }
+@media (prefers-reduced-motion:no-preference) {
+    .radar-marker,.terminal-search { transition:border-color 160ms,box-shadow 160ms; }
+}
 :root {
     color-scheme: light;
     --bg:#eef3f0;

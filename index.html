@@ -67,7 +67,7 @@
 
                     <p class="form-field search-field">
                         <label for="busca-titulo">Buscar tarefa</label>
-                        <input type="search" id="busca-titulo" name="busca-titulo">
+                        <span class="terminal-search"><span aria-hidden="true">&gt;_</span><input type="search" id="busca-titulo" name="busca-titulo" placeholder="Digite parte do título…" spellcheck="false"></span>
                     </p>
 
                     <p class="form-field">
@@ -111,6 +111,7 @@
             <div class="summary-item status-progress"><span>Em andamento</span><strong data-resumo="em-andamento">0</strong></div>
             <div class="summary-item status-review"><span>Em revisão</span><strong data-resumo="em-revisao">0</strong></div>
             <div class="summary-item status-done"><span>Concluídas</span><strong data-resumo="concluida">0</strong></div>
+            <div class="summary-item summary-overdue"><span>Atrasadas</span><strong id="total-atrasadas">0</strong></div>
         </section>
         <section class="progress-section" aria-labelledby="titulo-progresso" hidden>
             <div class="progress-header">
@@ -128,6 +129,20 @@
             </div>
         </section>
 
+        <section id="painel-radar" class="radar-panel" aria-label="Radar de prazos" hidden>
+            <div class="radar-heading">
+                <h2><span aria-hidden="true">⌖</span> Radar de prazos</h2>
+                <button type="button" id="alternar-radar" aria-expanded="true" aria-controls="radar-conteudo">Recolher radar</button>
+            </div>
+            <div id="radar-conteudo">
+                <p class="radar-help">Prazos das tarefas visíveis. Selecione uma tarefa para abrir os detalhes.</p>
+                <p id="radar-mensagem"></p>
+                <div class="radar-scroll" tabindex="0" role="region" aria-label="Linha de prazos; role horizontalmente para explorar">
+                    <ol id="radar-linha" class="radar-track"></ol>
+                </div>
+                <p class="radar-legend"><span>A fazer</span><span>Em andamento</span><span>Em revisão</span><span>Concluída</span></p>
+            </div>
+        </section>
         <section class="board-section" aria-labelledby="titulo-quadro">
             <div class="board-heading">
                 <h2 id="titulo-quadro" tabindex="-1">Quadro de tarefas</h2>
