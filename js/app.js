@@ -11,7 +11,7 @@ const estado = {
     ordenacao: "prazo-asc",
     carregamento: "carregando",
     erro: null,
-    tema: "claro",
+    tema: "escuro",
     filtrosAbertos: false
 };
 

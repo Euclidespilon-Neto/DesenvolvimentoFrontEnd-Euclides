@@ -1,19 +1,20 @@
+TASK PROTOCOL — releitura hacker/futurista
+
 Substitua index.html, styles.css e js/app.js.
-Preserve dados.json, os outros módulos e sua pasta assets.
-Confira o caminho da sua foto em foto.src no final de js/app.js.
+Preserve dados.json, assets e os demais módulos, inclusive js/progresso.js.
+Confira foto.src no final do app.js e mantenha o caminho da sua foto.
 
-Esta versão volta ao painel anterior, sem personagem, edição de status ou linha do tempo.
-Os contadores são somente indicadores: não recebem foco nem filtram as tarefas.
-A busca e os filtros normais permanecem funcionando.
-O progresso volta ao andamento estimado, com a explicação anterior dos pesos por status.
+HTML: nova identidade Task Protocol, acesso direto às tarefas pelo teclado
+e pequenos detalhes de apresentação. Seletores funcionais preservados.
+CSS: folha de estilos redesenhada; tema escuro com verde/ciano, tema claro próprio,
+grade de fundo, realce de código, barra segmentada, cartões geométricos e diálogo.
+JavaScript: apenas o tema inicial mudou de claro para escuro.
 
-O fundo contém 30 trechos com realce de sintaxe em CSS local.
-As cores acompanham o tema claro/escuro. O fundo aparece nos espaços livres,
-atrás do conteúdo; não recebe cliques nem é anunciado por leitores de tela.
-Para ajustar a intensidade, altere --syntax-opacity em styles.css.
+Os contadores continuam informativos. Busca, filtros, contagem por coluna,
+detalhes ampliados e cópia do resumo permanecem. Sem gamificação, personagem,
+edição de status, linha do tempo ou dependências externas.
+Fontes locais: Verdana/Trebuchet nos textos e Consolas nos detalhes de terminal.
+O tema não é persistido: recarregar inicia no escuro.
 
-Se você instalou a versão descartada, js/jornada.js e js/visual-jornada.js
-não serão mais utilizados. Pode removê-los. js/metas.js também não é usado.
-Mantenha js/progresso.js: esta versão volta a utilizá-lo.
-
-Commit: style: remove atalhos dos contadores e adiciona fundo com códigos coloridos
+Commit sugerido:
+style: aplica identidade hacker futurista ao painel de tarefas

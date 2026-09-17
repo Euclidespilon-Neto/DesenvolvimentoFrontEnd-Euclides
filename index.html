@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-tema="claro">
+<html lang="pt-BR" data-tema="escuro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quadro de Tarefas Acadêmicas</title>
+    <title>Task Protocol — Tarefas acadêmicas</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <a class="skip-link" href="#titulo-quadro">Ir para as tarefas</a>
     <div class="code-wallpaper" aria-hidden="true">
         <code><span class="syntax-fn">print</span>(<span class="syntax-string">"hello world"</span>)</code>
         <code><span class="syntax-keyword">const</span> <span class="syntax-variable">foco</span> = <span class="syntax-number">true</span>;</code>
@@ -42,19 +43,21 @@
     <header class="site-header">
         <div class="header-content">
             <div class="profile"><div class="avatar" aria-label="Foto de Euclides Carlos Pilon Neto"><span aria-hidden="true">EP</span><img id="foto-perfil" alt="" hidden></div><div class="site-identity">
-                <h1>Tarefas acadêmicas</h1>
+                <span class="brand-kicker">TASK PROTOCOL <span aria-hidden="true">/</span> 2026.2</span>
+                <h1>Tarefas acadêmicas<span class="terminal-cursor" aria-hidden="true">_</span></h1>
                 <p>Euclides Carlos Pilon Neto <span aria-hidden="true">·</span> 2026.2</p>
             </div>
             </div>
             <button type="button" id="alternar-tema" class="theme-toggle" hidden>
                 <svg class="theme-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 13.5A8.5 8.5 0 0 1 10.5 3.5a8.5 8.5 0 1 0 10 10Z"/></svg>
                 <svg class="theme-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
-                <span id="texto-tema">Modo escuro</span>
+                <span id="texto-tema">Modo claro</span>
             </button>
         </div>
     </header>
 
     <main>
+        <div class="workspace-intro"><p><span aria-hidden="true">~/</span> seu espaço de execução</p><span>Uma tarefa. Um próximo passo.</span></div>
         <section class="filters-panel" aria-labelledby="titulo-busca-filtros">
             <div class="filter-heading"><h2 id="titulo-busca-filtros">Busca e filtros</h2><button id="abrir-filtros" type="button" aria-expanded="false" aria-controls="form-filtros">Mostrar filtros</button><span id="filtros-ativos"></span><button id="limpar-rapido" type="button" hidden>Limpar filtros</button></div>
 
@@ -127,7 +130,7 @@
 
         <section class="board-section" aria-labelledby="titulo-quadro">
             <div class="board-heading">
-                <h2 id="titulo-quadro">Quadro de tarefas</h2>
+                <h2 id="titulo-quadro" tabindex="-1">Quadro de tarefas</h2>
                 <p data-estado role="status" aria-live="polite"></p>
             </div>
             <noscript>Ative o JavaScript para carregar as tarefas.</noscript>
@@ -172,7 +175,7 @@
         </div>
     </dialog>
     <footer>
-        <p>Euclides Carlos Pilon Neto — Desenvolvimento Frontend — 2026.2</p>
+        <p><span class="footer-mark" aria-hidden="true">&lt;/&gt;</span> Euclides Carlos Pilon Neto — Desenvolvimento Frontend — 2026.2</p>
     </footer>
     <script type="module" src="./js/app.js"></script>
 </body>
