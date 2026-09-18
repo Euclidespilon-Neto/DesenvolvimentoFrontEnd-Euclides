@@ -1,36 +1,10 @@
-TASK PROTOCOL — STATUS EDITÁVEL E RECOMPENSA
+Substitua somente js/app.js pelo arquivo desta pasta.
+Esta correção se aplica à versão e4-status (com andamento.js e radar.js).
 
-NOVO: Abra Ver detalhes, escolha o andamento e clique em Atualizar status.
-O diálogo permanece aberto e confirma a alteração. Colunas, radar, contagens
-e progresso são sincronizados; os filtros continuam valendo.
-Ao concluir todas as tarefas, aparece Missão cumprida e o selo Foco total.
-Reabrir uma tarefa remove o selo. Recarregar restaura o JSON original.
-Mudanças desta etapa: index.html, styles.css, js/app.js e novo js/andamento.js.
-Commit: feat: permite alterar status e recompensa a conclusão das tarefas
+Quando a mudança de status faria a tarefa sair do filtro atual, o filtro
+de status passa para Todos os status. Busca e prioridade são mantidas.
+A tarefa continua no quadro, na coluna correspondente ao novo status.
+O diálogo avisa quando o filtro é ajustado; o controle e a contagem acompanham.
 
-Copie index.html e styles.css para a raiz do seu projeto.
-Copie o conteúdo da pasta js para a pasta js existente.
-Mantenha seu dados.json e sua foto em assets/foto-perfil.jpg.
-Este pacote é uma atualização: dados.json e a foto não estão incluídos.
-
-Mudanças:
-- index.html: busca com prefixo de terminal, resumo de atrasadas, radar recolhível.
-- styles.css: trilhas de circuito, cantos marcados e radar nos dois temas.
-- js/radar.js: agrupamento por prazo, hoje e cálculo de atrasadas.
-- js/app.js: sincroniza radar com a lista visível e abre o diálogo existente.
-- api, estados, progresso, renderizacao e selecao foram copiados sem alterações.
-
-O radar começa aberto e pode ser recolhido. Datas são ordenadas e seus
-intervalos compactados para facilitar a leitura; não é uma escala proporcional.
-Tarefas do mesmo dia ficam agrupadas. Os botões abrem detalhes, não filtram.
-Atrasadas considera todas as tarefas não concluídas com prazo anterior a hoje,
-no calendário local. O resumo geral independe dos filtros.
-Não há cadastro nem persistência das alterações de status.
-metas.js não é necessário nesta versão; não é importado.
-
-Verifique pelo Live Server: busca combinada, radar vazio, detalhes pelo teclado,
-recolher radar, temas e celular. Use Ctrl+F5 se o navegador mostrar o CSS antigo.
-
-Commits sugeridos, após conferir cada etapa:
-feat: integra radar de prazos aos filtros e detalhes
-style: adiciona busca de terminal e acabamentos de circuito
+Recarregue a página com Ctrl+F5 após salvar.
+Commit: fix: mantém tarefa visível após alterar o status

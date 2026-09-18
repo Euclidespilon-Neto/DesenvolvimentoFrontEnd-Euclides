@@ -286,12 +286,17 @@ document.querySelector("#form-andamento").addEventListener("submit", (evento) =>
     }
     const antesCompleto = todasConcluidas(estado.tarefas);
     estado.tarefas = alterarStatus(estado.tarefas, tarefa.id, novoStatus);
+    // Mantém a tarefa visível se o filtro ainda aponta para a etapa anterior.
+    const filtroAjustado = estado.status !== "todos" && estado.status !== novoStatus;
+    if (filtroAjustado) estado.status = "todos";
     renderizarAplicacao();
     abrirDetalhes(estado.tarefas.find(t => String(t.id) === estado.detalheId), origemDetalhes);
     const conquistou = !antesCompleto && todasConcluidas(estado.tarefas);
-    document.querySelector("#andamento-feedback").textContent = conquistou
+    const confirmacao = conquistou
         ? "Missão cumprida! Todas as tarefas concluídas. Selo Foco total conquistado!"
         : "Status atualizado para " + nomesStatus[novoStatus] + ".";
+    document.querySelector("#andamento-feedback").textContent = confirmacao
+        + (filtroAjustado ? " Exibindo todos os status para manter esta tarefa visível no quadro." : "");
 });
 document.querySelector("#copiar-resumo").addEventListener("click", async (evento) => {
     const botao = evento.currentTarget;
