@@ -129,6 +129,13 @@
             </div>
         </section>
 
+        <section id="recompensa" class="completion-reward" aria-labelledby="recompensa-titulo" hidden>
+            <span class="completion-emblem" aria-hidden="true">✓</span>
+            <div><p class="completion-code" aria-hidden="true">[ PROTOCOLO CONCLUÍDO ]</p>
+                <h2 id="recompensa-titulo">Missão cumprida!</h2>
+                <p>Todas as tarefas concluídas. Você conquistou o selo Foco total nesta sessão.</p>
+            </div><strong class="completion-score" aria-hidden="true">100%</strong>
+        </section>
         <section id="painel-radar" class="radar-panel" aria-label="Radar de prazos" hidden>
             <div class="radar-heading">
                 <h2><span aria-hidden="true">⌖</span> Radar de prazos</h2>
@@ -183,6 +190,20 @@
         <h2 id="detalhes-titulo"></h2>
         <div class="detail-highlights"><span id="detalhes-prioridade" class="priority"></span><p>Prazo: <time id="detalhes-prazo"></time></p></div>
         <dl id="detalhes-campos"></dl>
+        <form id="form-andamento" class="status-editor">
+            <label for="novo-status">Andamento da tarefa</label>
+            <div class="status-editor-controls">
+                <select id="novo-status" name="status" aria-describedby="aviso-sessao">
+                    <option value="a-fazer">A fazer</option>
+                    <option value="em-andamento">Em andamento</option>
+                    <option value="em-revisao">Em revisão</option>
+                    <option value="concluida">Concluída</option>
+                </select>
+                <button type="submit">Atualizar status</button>
+            </div>
+            <p id="aviso-sessao">As alterações duram até recarregar a página.</p>
+            <p id="andamento-feedback" role="status" aria-live="polite"></p>
+        </form>
         <div class="copy-area">
             <button type="button" id="copiar-resumo">Copiar resumo</button>
             <p id="copia-status" role="status" aria-live="polite"></p>

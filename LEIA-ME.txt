@@ -1,4 +1,12 @@
-TASK PROTOCOL — RADAR DE PRAZOS
+TASK PROTOCOL — STATUS EDITÁVEL E RECOMPENSA
+
+NOVO: Abra Ver detalhes, escolha o andamento e clique em Atualizar status.
+O diálogo permanece aberto e confirma a alteração. Colunas, radar, contagens
+e progresso são sincronizados; os filtros continuam valendo.
+Ao concluir todas as tarefas, aparece Missão cumprida e o selo Foco total.
+Reabrir uma tarefa remove o selo. Recarregar restaura o JSON original.
+Mudanças desta etapa: index.html, styles.css, js/app.js e novo js/andamento.js.
+Commit: feat: permite alterar status e recompensa a conclusão das tarefas
 
 Copie index.html e styles.css para a raiz do seu projeto.
 Copie o conteúdo da pasta js para a pasta js existente.
@@ -17,7 +25,7 @@ intervalos compactados para facilitar a leitura; não é uma escala proporcional
 Tarefas do mesmo dia ficam agrupadas. Os botões abrem detalhes, não filtram.
 Atrasadas considera todas as tarefas não concluídas com prazo anterior a hoje,
 no calendário local. O resumo geral independe dos filtros.
-Não há cadastro, gamificação, edição de status ou persistência.
+Não há cadastro nem persistência das alterações de status.
 metas.js não é necessário nesta versão; não é importado.
 
 Verifique pelo Live Server: busca combinada, radar vazio, detalhes pelo teclado,

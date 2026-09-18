@@ -3,6 +3,7 @@ import { renderizarEstado } from "./estados.js";
 import { selecionarTarefas } from "./selecao.js";
 import { calcularProgresso } from "./progresso.js";
 import { renderizarRadar, contarAtrasadas } from "./radar.js";
+import { alterarStatus, todasConcluidas } from "./andamento.js";
 
 const estado = {
     tarefas: [],
@@ -14,7 +15,8 @@ const estado = {
     erro: null,
     tema: "escuro",
     filtrosAbertos: false,
-    radarAberto: true
+    radarAberto: true,
+    detalheId: null
 };
 
 const botaoTema = document.querySelector("#alternar-tema");
@@ -78,6 +80,7 @@ function renderizarPainel() {
 }
 
 function renderizarAplicacao() {
+    document.querySelector("#recompensa").hidden = estado.carregamento !== "sucesso" || !todasConcluidas(estado.tarefas);
     const radar = document.querySelector("#painel-radar");
     radar.hidden = estado.carregamento !== "sucesso";
     document.querySelector("#radar-conteudo").hidden = !estado.radarAberto;
@@ -224,6 +227,9 @@ let resumoParaCopiar = "";
 let versaoDetalhes = 0;
 const nomesStatus = {"a-fazer": "A fazer", "em-andamento": "Em andamento", "em-revisao": "Em revisão", "concluida": "Concluída"};
 function abrirDetalhes(tarefa, origem) {
+    estado.detalheId = String(tarefa.id);
+    document.querySelector("#novo-status").value = tarefa.status;
+    document.querySelector("#andamento-feedback").textContent = "";
     versaoDetalhes++;
     document.querySelector("#copiar-resumo").disabled = false;
     document.querySelector("#copia-status").textContent = "";
@@ -249,14 +255,43 @@ function abrirDetalhes(tarefa, origem) {
         const descricao = document.createElement("dd"); descricao.textContent = valor;
         lista.append(termo, descricao);
     }
-    dialogo.showModal();
+    if (!dialogo.open) dialogo.showModal();
     document.body.classList.add("details-open");
 }
 document.querySelector("#fechar-detalhes").addEventListener("click", () => dialogo.close());
 dialogo.addEventListener("close", () => {
     versaoDetalhes++;
     document.body.classList.remove("details-open");
-    if (origemDetalhes?.isConnected) origemDetalhes.focus();
+    // A atualização substitui os cartões: encontra o novo botão pelo ID.
+    let retorno = origemDetalhes?.isConnected && !origemDetalhes.closest("[hidden]") ? origemDetalhes : null;
+    if (!retorno && origemDetalhes?.hasAttribute("data-radar-id")) {
+        retorno = [...document.querySelectorAll("[data-radar-id]")].find(b => b.dataset.radarId === estado.detalheId);
+    }
+    if (!retorno) {
+        const cartao = [...quadro.querySelectorAll("[data-id]")].find(c => c.dataset.id === estado.detalheId && !c.closest(".status-column").hidden);
+        retorno = cartao?.querySelector('button[data-acao="ver-detalhes"]');
+    }
+    (retorno || document.querySelector("#titulo-quadro")).focus({preventScroll:true});
+    estado.detalheId = null;
+});
+
+document.querySelector("#form-andamento").addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    const tarefa = estado.tarefas.find(t => String(t.id) === estado.detalheId);
+    if (!tarefa) return;
+    const novoStatus = document.querySelector("#novo-status").value;
+    if (novoStatus === tarefa.status) {
+        document.querySelector("#andamento-feedback").textContent = "A tarefa já está neste status.";
+        return;
+    }
+    const antesCompleto = todasConcluidas(estado.tarefas);
+    estado.tarefas = alterarStatus(estado.tarefas, tarefa.id, novoStatus);
+    renderizarAplicacao();
+    abrirDetalhes(estado.tarefas.find(t => String(t.id) === estado.detalheId), origemDetalhes);
+    const conquistou = !antesCompleto && todasConcluidas(estado.tarefas);
+    document.querySelector("#andamento-feedback").textContent = conquistou
+        ? "Missão cumprida! Todas as tarefas concluídas. Selo Foco total conquistado!"
+        : "Status atualizado para " + nomesStatus[novoStatus] + ".";
 });
 document.querySelector("#copiar-resumo").addEventListener("click", async (evento) => {
     const botao = evento.currentTarget;

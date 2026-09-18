@@ -1,4 +1,20 @@
 /* TASK PROTOCOL — HTML, CSS e JavaScript nativos. Fontes do sistema. */
+.status-editor { margin-top:1.2rem; padding-top:1rem; border-top:1px solid var(--border); }
+.status-editor label { display:block; margin-bottom:0.5rem; font:0.85rem var(--mono); color:var(--cyan); }
+.status-editor-controls { display:flex; flex-wrap:wrap; gap:0.65rem; }
+.status-editor-controls select { flex:1 1 180px; width:auto; }
+#aviso-sessao { color:var(--muted); font-size:0.76rem; line-height:1.6; }
+#andamento-feedback { color:var(--accent); font-size:0.88rem; line-height:1.6; min-height:1.6em; }
+.completion-reward { display:flex; flex-wrap:wrap; align-items:center; gap:1rem; padding:1.2rem; margin-bottom:1.5rem; border:1px solid var(--accent); background:var(--surface); box-shadow:inset 4px 0 var(--accent); }
+.completion-emblem { display:grid; place-items:center; width:3rem; height:3rem; border:2px solid var(--accent); border-radius:50%; color:var(--accent); font:700 1.6rem var(--mono); }
+.completion-reward h2 { margin:0; font-size:1.2rem; }
+.completion-reward p { margin:0.35rem 0; font-size:0.82rem; line-height:1.6; }
+.completion-code { color:var(--cyan); font-family:var(--mono); }
+.completion-score { margin-left:auto; color:var(--accent); font:700 1.6rem var(--mono); }
+@media (prefers-reduced-motion:no-preference) {
+    .completion-reward:not([hidden]) { animation:completion-reveal 550ms ease-out both; }
+    @keyframes completion-reveal { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+}
 /* Radar e terminal: usam as mesmas variáveis dos temas existentes. */
 .terminal-search { display:flex; align-items:center; gap:0.65rem; padding-left:0.8rem; border:1px solid var(--border); border-radius:3px; background:var(--bg); }
 .terminal-search > span { color:var(--accent); font:700 1rem var(--mono); user-select:none; }
